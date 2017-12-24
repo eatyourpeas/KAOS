@@ -1,0 +1,8 @@
+{
+  "name": "kaos",
+  "app_id": "59927ca2",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
