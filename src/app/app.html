@@ -6,6 +6,17 @@
   </ion-header>
 
   <ion-content>
+    <div *ngIf="this.isAuth">
+      <ion-list>
+        <ion-item>
+            <ion-avatar item-start>
+              <img src="/assets/imgs/heads/doctor.jpg">
+            </ion-avatar>
+            {{this.email}}
+        </ion-item>
+      </ion-list>
+    </div>
+
     <ion-list>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
@@ -13,6 +24,20 @@
     </ion-list>
   </ion-content>
 
+  <ion-footer>
+
+
+      <div *ngIf="this.isAuth;else context">
+        <ion-list>
+          <button menuClose ion-item (click)="openRoster()">My Roster</button>
+          <button menuClose ion-item (click)="openSignOut()">Sign Out</button>
+        </ion-list>
+      </div>
+      <ng-template #context>
+        <button menuClose ion-item (click)="openSignIn()">Clinician Sign In</button>
+      </ng-template>
+
+  </ion-footer>
 </ion-menu>
 
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->

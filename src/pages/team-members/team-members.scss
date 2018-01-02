@@ -1,0 +1,12 @@
+page-team-members {
+  h2 {
+    color: map-get($colors, primary);
+  }
+
+  h3 {
+     color: map-get($colors, dark);
+  }
+  .content{
+    background-color: white;
+  }
+}

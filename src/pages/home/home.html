@@ -8,11 +8,46 @@
 </ion-header>
 
 <ion-content padding>
-  <h3>Ionic Menu Starter</h3>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-2>
+        <div>
+          <img class="kaos-icon" src="assets/imgs/kaos512.png"/>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          <h4>
+            <i>
+              King's Adolescent Outreach Service
+            </i>
+          </h4>
+          <hr>
+          <h6>
+            Supporting young people across King's College Hospital
+          </h6>
+        </div>
+      </ion-col>
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button ion-button class="square" (click)="goList()">Resources</button>
+      </ion-col>
+      <ion-col>
+        <button ion-button class="square" (click)="goAbout()">About KAOS</button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button ion-button class="square" (click)="goQuiz()">Quiz</button>
+      </ion-col>
+      <ion-col>
+        <button ion-button class="square" (click)="goContacts()">Useful Contacts</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!--button ion-button secondary menuToggle>Toggle Menu</button-->
 </ion-content>
