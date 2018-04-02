@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { FirebaseApp } from 'angularfire2';
-// I am importing simple ionic storage (local one), in prod this should be remote storage of some sort.
-import { Storage } from '@ionic/storage';
+import { UserProfileProvider } from '../user-profile/user-profile';
 
 @Injectable()
 export class FirebaseMessagingProvider {
@@ -9,8 +8,8 @@ export class FirebaseMessagingProvider {
   private unsubscribeOnTokenRefresh = () => {};
 
   constructor(
-    private storage: Storage,
-    private app: FirebaseApp
+    private app: FirebaseApp,
+    private userProfileProvider: UserProfileProvider
   ) {
     this.messaging = app.messaging();
     navigator.serviceWorker.register('service-worker.js').then((registration) => {
@@ -33,7 +32,7 @@ export class FirebaseMessagingProvider {
   public disableNotifications() {
     this.unsubscribeOnTokenRefresh();
     this.unsubscribeOnTokenRefresh = () => {};
-    return this.storage.set('fcmToken','').then();
+    return this.userProfileProvider.setTokenForCurrentUser('').then();
   }
 
   private updateToken() {
@@ -41,7 +40,7 @@ export class FirebaseMessagingProvider {
       if (currentToken) {
         // we've got the token from Firebase, now let's store it in the database
         console.log(currentToken)
-        return this.storage.set('fcmToken', currentToken);
+        return this.userProfileProvider.setTokenForCurrentUser(currentToken);
       } else {
         console.log('No Instance ID token available. Request permission to generate one.');
       }
@@ -51,8 +50,16 @@ export class FirebaseMessagingProvider {
   private setupOnTokenRefresh(): void {
     this.unsubscribeOnTokenRefresh = this.messaging.onTokenRefresh(() => {
       console.log("Token refreshed");
-      this.storage.set('fcmToken','').then(() => { this.updateToken(); });
+      this.userProfileProvider.setTokenForCurrentUser('').then(()=>{
+        this.updateToken()
+      });
     });
+  }
+
+  public returnMessage(){
+    this.messaging.onMessage((payload)=>{
+      console.log("message received" + payload);
+    })
   }
 
 }

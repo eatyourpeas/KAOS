@@ -1,0 +1,6 @@
+{
+  "appId": "uk.co.eatyourpeas.kaos",
+  "appName": "KAOS",
+  "bundledWebRuntime": false,
+  "webDir": "www"
+}

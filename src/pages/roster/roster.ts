@@ -10,6 +10,7 @@ import { DatesProvider } from '../../providers/dates/dates'
 import { UserProfileProvider } from '../../providers/user-profile/user-profile';
 import moment from 'moment';
 import { SMS } from '@ionic-native/sms';
+import { FirebaseMessagingProvider } from '../../providers/firebase-messaging/firebase-messaging';
 
 export interface RosterDate { id: string, user: string, date: Date };
 export interface RosterDetails { date: string, user_id: string, user_title: string, user_first_name: string, user_second_name: string, user_email: string, user_mobile: string, user_isAdmin: boolean};
@@ -48,12 +49,21 @@ export class RosterPage {
 
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public datesProvider: DatesProvider, public userProfileProvider: UserProfileProvider, auth: AuthData, public afs: AngularFirestore, private sms: SMS) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public alertCtrl: AlertController,
+    public datesProvider: DatesProvider,
+    public userProfileProvider: UserProfileProvider,
+    public auth: AuthData,
+    public afs: AngularFirestore,
+    private sms: SMS,
+    public fbmessaging: FirebaseMessagingProvider) {
     this.authP = auth;
   }
 
   ionViewWillEnter(){
-
+    this.fbmessaging.returnMessage();
   }
 
   addRosterDate(){
@@ -187,7 +197,8 @@ export class RosterPage {
     }
     if(this.KAOSClinicianOnCallMobile != ""){
       console.log("i am calling " + this.KAOSClinicianOnCallMobile);
-      this.sms.send(this.KAOSClinicianOnCallMobile, "Hello test call");
+    //  this.sms.send(this.KAOSClinicianOnCallMobile, "Hello test call");
+
     } else {
       console.log("there is noone to swap with");
     }

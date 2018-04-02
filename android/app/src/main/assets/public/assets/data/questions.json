@@ -1,0 +1,39 @@
+{
+    "questions": [
+
+        {
+            "flashCardFront": "<img src='assets/imgs/Quentin_Tarantino_by_Gage_Skidmore.jpg' />",
+            "flashCardBack": "Quentin Tarantino",
+            "flashCardFlipped": false,
+            "questionText": "Who is the director of Reservoir Dogs?",
+            "answers": [
+                {"answer": "Quentin Tarantino", "correct": true, "selected": false},
+                {"answer": "Martin Scorsese", "correct": false, "selected": false},
+                {"answer": "Spike Lee", "correct": false, "selected": false}
+            ]
+        },
+        {
+            "flashCardFront": "<img src='assets/imgs/Alcatraz.jpg' />",
+            "flashCardBack": "Alcatraz",
+            "flashCardFlipped": false,
+            "questionText": "What is the name of the prison in the film 'the Rock'?",
+            "answers": [
+                {"answer": "San Quentin", "correct": false, "selected": false},
+                {"answer": "Alcatraz", "correct": true, "selected": false},
+                {"answer": "Riker's Island", "correct": false, "selected": false}
+            ]
+        },
+        {
+            "flashCardFront": "<img src='assets/imgs/kings_college_hospital.jpg' />",
+            "flashCardBack": "5,700",
+            "flashCardFlipped": false,
+            "questionText": "How many young people (16-19y) attend King's A&E? every year?",
+            "answers": [
+                {"answer": "12,200", "correct": false, "selected": false},
+                {"answer": "3,200", "correct": false, "selected": false},
+                {"answer": "5,700", "correct": true, "selected": false}
+            ]
+        }
+
+    ]
+}

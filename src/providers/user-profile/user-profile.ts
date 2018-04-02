@@ -4,6 +4,7 @@ import { AngularFirestore } from 'angularfire2/firestore'
 import {  AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import md5 from 'crypto-md5';
+import { AuthData } from '../auth/auth';
 
 /*
   Generated class for the UserProfileProvider provider.
@@ -12,7 +13,7 @@ import md5 from 'crypto-md5';
   and Angular DI.
 */
 
-export interface UserProfile { id: string, title: string, first_name: string, second_name: string, uid: string, role: string, secondary_role: string, service: string, bio: string, mobile: string, admin: boolean, email: string, centre: string, first_time: boolean }
+export interface UserProfile { id: string, title: string, first_name: string, second_name: string, uid: string, role: string, secondary_role: string, service: string, bio: string, mobile: string, admin: boolean, email: string, centre: string, first_time: boolean, token: string }
 
 @Injectable()
 export class UserProfileProvider {
@@ -22,7 +23,11 @@ export class UserProfileProvider {
   userProfileCollection: AngularFirestoreCollection<UserProfile>
   myAvatar;
 
-  constructor(public http: HttpClient, public afs: AngularFirestore) {
+  constructor(
+    public http: HttpClient,
+    public afs: AngularFirestore,
+    public auth: AuthData
+  ) {
     this.userProfileCollection = afs.collection('UserProfiles');
   }
 
@@ -111,6 +116,22 @@ setUserHasLoggedInForFirstTimeAndChangedPassword(user_id): Promise<boolean>{
       })
     })
   });
+}
+
+setTokenForCurrentUser(token): Promise<boolean>{
+  return new Promise((resolve, reject)=>{
+  let myProfile = this.getProfileForUser(this.auth.getLoggedInUserId());
+  myProfile.subscribe(res =>{
+    res[0].token = token;
+    this.userProfileCollection.doc(res[0].id).update(res[0]).then(updatedObj =>{
+      if(updatedObj){
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    })
+  })
+});
 }
 
 }

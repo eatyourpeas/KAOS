@@ -20,6 +20,7 @@ import { DataProvider } from '../providers/data/data';
 import { WardsProvider } from '../providers/wards/wards';
 import { UserProfileProvider } from '../providers/user-profile/user-profile';
 import { DatesProvider } from '../providers/dates/dates';
+import 'firebase/messaging'; // only import firebase messaging or as needed;
 import { FirebaseMessagingProvider } from '../providers/firebase-messaging/firebase-messaging';
 
 

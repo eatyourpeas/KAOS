@@ -7,7 +7,7 @@ import md5 from 'crypto-md5';
 import { AngularFirestore } from 'angularfire2/firestore'
 //import {  AngularFirestoreCollection } from 'angularfire2/firestore';
 
-export interface UserProfile { id: string, title: string, first_name: string, second_name: string, uid: string, role: string, secondary_role: string, service: string, bio: string, mobile: string, admin: boolean, avatar: string, first_time: boolean }
+export interface UserProfile { id: string, title: string, first_name: string, second_name: string, uid: string, role: string, secondary_role: string, service: string, bio: string, mobile: string, admin: boolean, avatar: string, first_time: boolean, token: string }
 
 @Injectable()
 export class AuthData {
@@ -64,7 +64,8 @@ export class AuthData {
             bio: "",
             admin: false,
             avatar: final_url,
-            first_time: true
+            first_time: true,
+            token: ""
           };
           this.afs.collection('UserProfiles').add(newUserProfile);
         })
