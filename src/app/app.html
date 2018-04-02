@@ -8,18 +8,18 @@
   <ion-content>
     <div *ngIf="this.isAuth">
       <ion-list>
-        <ion-item>
+        <button menuClose ion-item (click)="editIdent()">
             <ion-avatar item-start>
-              <img src="/assets/imgs/heads/doctor.jpg">
+              <img src={{myAvatar}}>
             </ion-avatar>
-            {{this.email}}
-        </ion-item>
+            <div class="logInEmail">{{this.email}}</div>
+        </button >
       </ion-list>
     </div>
 
     <ion-list>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        {{p.title}}
+        <div class="menupage">{{p.title}}</div>
       </button>
     </ion-list>
   </ion-content>
@@ -29,8 +29,8 @@
 
       <div *ngIf="this.isAuth;else context">
         <ion-list>
-          <button menuClose ion-item (click)="openRoster()">My Roster</button>
-          <button menuClose ion-item (click)="openSignOut()">Sign Out</button>
+          <button menuClose ion-item (click)="openRoster()" class="menupage">My Roster</button>
+          <button menuClose ion-item (click)="openSignOut()" class="signout">Sign Out</button>
         </ion-list>
       </div>
       <ng-template #context>

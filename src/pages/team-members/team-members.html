@@ -17,17 +17,18 @@
 
 
 <ion-content padding>
-  <ion-list inset>
-    <ion-item *ngFor="let member of team_members" class="content">
+  <ion-list inset *ngIf="team_members?.length > 0; else nomembersyet">
+    <button ion-item *ngFor="let member of team_members" class="content" (click)="onSelect(member.uid)">
       <ion-avatar item-start>
-        <div *ngIf="member.avatar;else content">
-          <img src="assets/imgs/heads/{{member.avatar}}">
-        </div>
-        <ng-template #content><img src="assets/imgs/heads/doctor.jpg"></ng-template>
+          <img src={{member.avatar}}>
       </ion-avatar>
-      <h2>{{member.name}}</h2>
-      <h3>{{member.role}}</h3>
-      <p>{{member.strap_line}}</p>
-    </ion-item>
+      <h2>{{ member.title }} {{member.first_name}} {{member.second_name}}</h2>
+      <h3>{{ member.role }}</h3>
+      <h6>{{ member.secondary_role }}</h6>
+    </button>
+    
   </ion-list>
+  <ng-template #nomembersyet>
+    <h2 id="nomembers">KAOS does not yet have any members</h2>
+  </ng-template>
 </ion-content>

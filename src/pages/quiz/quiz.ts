@@ -1,7 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, IonicPage } from 'ionic-angular';
 import { AngularFireDatabase } from 'angularfire2/database';
 
+@IonicPage()
 @Component({
   selector: 'page-quiz',
   templateUrl: 'quiz.html',
@@ -34,23 +35,6 @@ export class QuizPage {
     ionViewDidLoad() {
 
         this.slides.lockSwipes(true);
-
-
-        /*
-        this.dataService.load().then((data) => {
-
-            data.map((question) => {
-
-                let originalOrder = question.answers;
-                question.answers = this.randomizeAnswers(originalOrder);
-                return question;
-
-            });
-
-            this.questions = data;
-
-        });
-        */
 
     }
 

@@ -2,47 +2,63 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+//import { FCM } from '@ionic-native/fcm';
 
-import { HomePage } from '../pages/home/home';
-import { QuizPage } from '../pages/quiz/quiz'
-import { ListPage } from '../pages/list/list';
-import { TeamMembersPage } from '../pages/team-members/team-members';
-import { ContactsPage } from '../pages/contacts/contacts';
-import { AboutPage } from '../pages/about/about';
+//import { HomePage } from '../pages/home/home';
+//import { QuizPage } from '../pages/quiz/quiz'
+//import { ListPage } from '../pages/list/list';
+//import { TeamMembersPage } from '../pages/team-members/team-members';
+//import { ContactsPage } from '../pages/contacts/contacts';
+//import { AboutPage } from '../pages/about/about';
 
-import { LoginPage } from '../pages/login/login';
+//import { LoginPage } from '../pages/login/login';
+//import { RosterPage } from '../pages/roster/roster';
+//import { IdentPage } from '../pages/ident/ident';
 
-//import { AuthData } from '../providers/auth/auth';
-import firebase from 'firebase';
+import { AuthData } from '../providers/auth/auth';
+import { UserProfileProvider } from '../providers/user-profile/user-profile';
+
 import { AngularFireAuth } from 'angularfire2/auth';
 
 
 @Component({
   templateUrl: 'app.html'
 })
+
 export class MyApp {
+
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = 'HomePage';
   //rootPage: any; //= LoginPage; -force login on open
 
   pages: Array<{title: string, component: any}>;
   email: any;
   isAuth: boolean = false;
+  myAvatar: string;
+  user_id: string;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public afAuth: AngularFireAuth) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public afAuth: AngularFireAuth, private profileProvider: UserProfileProvider, public auth: AuthData) {
     this.initializeApp();
-  //  firebase.initializeApp(firebaseConfig);
+/*
+    this.fcm.getToken().then(token => {
+  // Your best bet is to here store the token on the user's profile on the
+  // Firebase database, so that when you want to send notifications to this
+  // specific user you can do it from Cloud Functions.
+  });
+*/
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'About KAOS', component: AboutPage },
-      { title: 'Meet The Team', component: TeamMembersPage },
-      { title: 'Resources', component: ListPage },
-      { title: 'Quiz', component: QuizPage },
-      { title: 'Useful Contacts', component: ContactsPage }
+      { title: 'Home', component: 'HomePage' },
+      { title: 'About KAOS', component: 'AboutPage' },
+      { title: 'Meet The Team', component: 'TeamMembersPage' },
+      { title: 'Resources', component: 'ListPage' },
+      { title: 'Quiz', component: 'QuizPage' },
+      { title: 'Useful Contacts', component: 'ContactsPage' }
     ];
+
+    //this.auth = authD;
 
     /* required if forced log in on open
 
@@ -58,6 +74,7 @@ export class MyApp {
     */
 
 
+
   }
 
   initializeApp() {
@@ -69,17 +86,33 @@ export class MyApp {
 
       this.afAuth.authState.subscribe(res => {
         if (res && res.uid) {
+          console.log("you are signed in");
           //you are signed in
           this.email = res.email;
           this.isAuth = true;
-        } else {
+          this.user_id = res.uid;
 
+          this.profileProvider.getAvatarURLForUserId(res.uid)
+          .then(result =>{
+            this.myAvatar = result;
+          })
+          .catch(()=>{
+            this.myAvatar = "/assets/imgs/heads/doctor.jpg";
+          })
+
+
+        } else {
+          console.log("you are not signed in");
           //redirect to login - should never be necessary - used if force login on open
         //  this.nav.setRoot("LoginPage");
         }
       });
 
     });
+  }
+
+  ionViewDidLoad(){
+
   }
 
   openPage(page) {
@@ -90,7 +123,8 @@ export class MyApp {
     if(page.component){
       this.nav.setRoot(page.component);
     } else {
-      firebase.auth().signOut();
+      this.auth.logout();
+      //firebase.auth().signOut();
       this.isAuth = false;
       //this.nav.setRoot("LoginPage"); - used if force login on open
     }
@@ -98,11 +132,24 @@ export class MyApp {
   }
 
   openSignOut(){
-    firebase.auth().signOut();
+    //firebase.auth().signOut();
+    this.auth.logout();
     this.isAuth = false;
+    this.nav.setRoot('HomePage');
   }
 
   openSignIn(){
-    this.nav.setRoot(LoginPage);
+    this.nav.setRoot('LoginPage');
+  }
+
+  openRoster(){
+    this.nav.setRoot('RosterPage');
+  }
+
+  editIdent(){
+    this.nav.setRoot('IdentPage', {
+      user_id: this.auth.getLoggedInUserId(),
+      edit: true
+    });
   }
 }

@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { AuthData } from '../../providers/auth/auth';
+import { UserProfileProvider } from '../../providers/user-profile/user-profile';
 import { EmailValidator } from '../../validators/email';
 
 @IonicPage({
-  
+
 })
 @Component({
   selector: 'page-reset-password',
@@ -13,10 +14,13 @@ import { EmailValidator } from '../../validators/email';
 })
 export class ResetPasswordPage {
   public resetPasswordForm: FormGroup;
+  wasFirstTime: boolean;
 
   constructor(
     public navCtrl: NavController,
+    public navParams: NavParams,
     public authProvider: AuthData,
+    public userProfileProvider: UserProfileProvider,
     public formBuilder: FormBuilder,
     public alertCtrl: AlertController
   ) {
@@ -27,7 +31,7 @@ export class ResetPasswordPage {
   }
 
   ionViewDidLoad() {
-    //console.log('ionViewDidLoad ResetPasswordPage');
+    this.wasFirstTime = this.navParams.get('wasFirstTime');
   }
 
   resetPassword(){
@@ -36,13 +40,24 @@ export class ResetPasswordPage {
     } else {
       this.authProvider.resetPassword(this.resetPasswordForm.value.email)
       .then((user) => {
+
+        if(this.wasFirstTime){//navigated to this page from WalkThroughPage: update firestore userprofile, else came as a standard password reset
+
+          this.userProfileProvider.setUserHasLoggedInForFirstTimeAndChangedPassword(this.authProvider.getLoggedInUserId()).then(result=>{
+            if(true){
+              console.log('password updated and tutorial done');
+            }
+          }).catch(error =>{
+            console.log(error.message);
+          });
+        }
         let alert = this.alertCtrl.create({
           message: "We sent you a reset link to your email",
           buttons: [
             {
               text: "Ok",
               role: 'cancel',
-              handler: () => { this.navCtrl.pop(); }
+              handler: () => { this.navCtrl.setRoot('HomePage'); }
             }
           ]
         });

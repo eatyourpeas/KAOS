@@ -3,29 +3,24 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
+import { SMS } from '@ionic-native/sms';
 
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabase, AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireModule } from "angularfire2";
+
+import { AngularFirestoreModule } from "angularfire2/firestore"
 import { AuthData } from "../providers/auth/auth"
-
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
-import { QuizPage } from '../pages/quiz/quiz'
-import { ListPage } from '../pages/list/list';
-import { ContactsPage } from '../pages/contacts/contacts';
-import { AboutPage } from '../pages/about/about';
-import { TeamMembersPage } from '../pages/team-members/team-members';
-
-import { LoginPage } from '../pages/login/login';
-import { SignupPage } from '../pages/signup/signup';
-import { ResetPasswordPage } from '../pages/reset-password/reset-password';
-
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+
 import { DataProvider } from '../providers/data/data';
-import { FlashCardComponent } from '../components/flashcard/flashcard';
+import { WardsProvider } from '../providers/wards/wards';
+import { UserProfileProvider } from '../providers/user-profile/user-profile';
+import { DatesProvider } from '../providers/dates/dates';
+import { FirebaseMessagingProvider } from '../providers/firebase-messaging/firebase-messaging';
 
 
 export const firebaseConfig = {
@@ -39,17 +34,7 @@ export const firebaseConfig = {
 
 @NgModule({
   declarations: [
-    MyApp,
-    HomePage,
-    QuizPage,
-    ListPage,
-    FlashCardComponent,
-    ContactsPage,
-    AboutPage,
-    TeamMembersPage,
-    LoginPage,
-    SignupPage,
-    ResetPasswordPage
+    MyApp
   ],
   imports: [
     BrowserModule,
@@ -59,20 +44,11 @@ export const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+    AngularFirestoreModule.enablePersistence()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    HomePage,
-    QuizPage,
-    ListPage,
-    ContactsPage,
-    AboutPage,
-    TeamMembersPage,
-    LoginPage,
-    SignupPage,
-    ResetPasswordPage
-
+    MyApp
   ],
   providers: [
     StatusBar,
@@ -80,8 +56,12 @@ export const firebaseConfig = {
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     DataProvider,
     AngularFireDatabase,
-    AuthData
-
+    AuthData,
+    WardsProvider,
+    UserProfileProvider,
+    DatesProvider,
+    SMS,
+    FirebaseMessagingProvider
   ]
 })
 export class AppModule {}

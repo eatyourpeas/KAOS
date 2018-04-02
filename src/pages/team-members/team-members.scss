@@ -5,8 +5,13 @@ page-team-members {
 
   h3 {
      color: map-get($colors, dark);
+     font-family: "Roboto Light"
   }
   .content{
     background-color: white;
+  }
+
+  #nomembers {
+    text-align: center;
   }
 }

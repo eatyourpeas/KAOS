@@ -7,7 +7,6 @@ import { IonicPage,
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthData } from '../../providers/auth/auth';
 import { EmailValidator } from '../../validators/email';
-import { HomePage } from '../home/home';
 
 @IonicPage({
 })
@@ -23,7 +22,8 @@ export class SignupPage {
     public authProvider: AuthData,
     public formBuilder: FormBuilder,
     public loadingCtrl: LoadingController,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    public auth: AuthData
   ) {
       this.signupForm = formBuilder.group({
         email: ['',
@@ -37,16 +37,62 @@ export class SignupPage {
     if (!this.signupForm.valid){
       console.log(this.signupForm.value);
     } else {
-      this.authProvider.signupUser(this.signupForm.value.email,
-        this.signupForm.value.password)
-      .then(() => {
-        this.loading.dismiss().then( () => {
-          this.navCtrl.setRoot(HomePage);
-        });
-      }, (error) => {
-        this.loading.dismiss().then( () => {
+      if(this.auth.permitted.indexOf(this.signupForm.value.email.toLowerCase()) > -1){
+        this.authProvider.signup(this.signupForm.value.email,
+          this.signupForm.value.password)
+        .then((response) => {
+
+          if(response == "Success"){
+            this.loading.dismiss().then( () => {
+              let alert = this.alertCtrl.create({
+                message: "<h1>Congratulations!</h1> Account created! Now complete your profile. This will be visible to all, though your contact details will only be visible to other KAOS Clinicians.",
+                buttons: [
+                  {
+                    text: "Ok",
+                    role: 'cancel'
+                  }
+                ]
+              });
+              alert.present();
+              this.navCtrl.setRoot('IdentPage', {
+                user_id: this.auth.getLoggedInUserId(),
+                edit: true
+              });
+            });
+          } else {
+            this.loading.dismiss().then( () => {
+              let alert = this.alertCtrl.create({
+                message: response,
+                buttons: [
+                  {
+                    text: "Ok",
+                    role: 'cancel'
+                  }
+                ]
+              });
+              alert.present();
+            });
+          }
+        })
+        .catch((error)=>{
+          this.loading.dismiss().then( () => {
+            let alert = this.alertCtrl.create({
+              message: error.message,
+              buttons: [
+                {
+                  text: "Ok",
+                  role: 'cancel'
+                }
+              ]
+            });
+            alert.present();
+          });
+        })
+        this.loading = this.loadingCtrl.create();
+        this.loading.present();
+      } else {
           let alert = this.alertCtrl.create({
-            message: error.message,
+            message: "<H2>Sorry</H2>Only KAOS approved members can register.",
             buttons: [
               {
                 text: "Ok",
@@ -55,10 +101,7 @@ export class SignupPage {
             ]
           });
           alert.present();
-        });
-      });
-      this.loading = this.loadingCtrl.create();
-      this.loading.present();
+      }
     }
   }
 }

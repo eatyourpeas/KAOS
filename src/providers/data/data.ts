@@ -23,7 +23,6 @@ export class DataProvider {
 
             this.http.get('assets/data/team.json').map(res => res.json()).subscribe(data => {
                 this.data = data.team;
-
                 resolve(this.data);
             });
 

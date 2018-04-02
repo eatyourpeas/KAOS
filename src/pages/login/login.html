@@ -14,7 +14,7 @@
     <ion-row>
       <ion-col col-2>
         <div>
-          <img class="kaos-icon" src="assets/imgs/kaos512.png"/>
+          <img class="kaos-icon" src="assets/imgs/KAOS800_round.png"/>
         </div>
       </ion-col>
       <ion-col>
@@ -31,33 +31,39 @@
         </div>
       </ion-col>
     </ion-row>
+    <ion-row>
+      <div class="loginform">
+        <form [formGroup]="loginForm" (submit)="loginUser()" novalidate>
+
+          <ion-item>
+            <ion-label stacked>Email</ion-label>
+            <ion-input formControlName="email" type="email" placeholder="Your email address"
+              [class.invalid]="!loginForm.controls.email.valid && blur"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label stacked>Password</ion-label>
+            <ion-input formControlName="password" type="password" placeholder="Your password"
+              [class.invalid]="!loginForm.controls.password.valid && blur"></ion-input>
+          </ion-item>
+
+          <button ion-button block type="submit" [disabled]="!loginForm.valid">
+            Login
+          </button>
+
+        </form>
+        <div class="submitbutton">
+          <button ion-button block clear (click)="goToSignup()">
+            Create a new account
+          </button>
+
+          <button ion-button block clear (click)="goToResetPassword()">
+            I forgot my password
+          </button>
+        </div>
+      </div>
+
+    </ion-row>
   </ion-grid>
-  <form [formGroup]="loginForm" (submit)="loginUser()" novalidate>
-
-    <ion-item>
-      <ion-label stacked>Email</ion-label>
-      <ion-input formControlName="email" type="email" placeholder="Your email address"
-        [class.invalid]="!loginForm.controls.email.valid && blur"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label stacked>Password</ion-label>
-      <ion-input formControlName="password" type="password" placeholder="Your password"
-        [class.invalid]="!loginForm.controls.password.valid && blur"></ion-input>
-    </ion-item>
-
-    <button ion-button block type="submit" [disabled]="!loginForm.valid">
-      Login
-    </button>
-
-  </form>
-
-  <button ion-button block clear (click)="goToSignup()">
-    Create a new account
-  </button>
-
-  <button ion-button block clear (click)="goToResetPassword()">
-    I forgot my password
-  </button>
 
 </ion-content>

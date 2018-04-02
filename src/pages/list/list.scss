@@ -1,3 +1,9 @@
 page-list {
-
+  .resourceTitle {
+    color: map-get($colors, primary);
+    font-family: "IBM Plex Serif";
+  }
+  .item-note {
+    font-family: "Roboto Light";
+  }
 }

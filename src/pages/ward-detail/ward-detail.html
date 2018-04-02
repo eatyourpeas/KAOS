@@ -1,0 +1,75 @@
+<!--
+  Generated template for the WardDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ward_name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-4 class="wardTitle">Location</ion-col>
+        <ion-col col-8 class="wardDetail">{{location}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-4 class="wardTitle">Visiting Times</ion-col>
+        <ion-col col-8  class="wardDetail">{{visiting_times}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-4 class="wardTitle">Maximum Visitors</ion-col>
+        <ion-col col-8  class="wardDetail">{{max_visitors}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-4 class="wardTitle">Protected Meal Time</ion-col>
+        <ion-col col-8  class="wardDetail">{{protected_mealtime}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-4 class="wardTitle">Ward Manager</ion-col>
+        <ion-col col-8  class="wardDetail">{{ward_manager}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-4 class="wardTitle">Telephone</ion-col>
+        <ion-col col-8  class="wardDetail">{{telephone}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-4 class="wardTitle">Facilities</ion-col>
+        <ion-col col-8  class="wardDetail">
+          <span *ngFor="let f of facilities">
+              <ion-icon name={{f}}></ion-icon>
+          </span>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-4 class="wardTitle">
+          Background
+        </ion-col>
+        <ion-col col-8  class="wardDetail">
+            {{history}}
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+</ion-content>
+<ion-footer>
+  <ion-grid>
+    <ion-row class="key">
+        <ion-col col-2>
+          <div class="wardDetail">Key</div>
+        </ion-col>
+        <ion-col col-10 class="spancol">
+          <ion-icon name="phone-portrait"></ion-icon>: mobile &nbsp;&nbsp;
+          <ion-icon name="wifi"></ion-icon>: wifi &nbsp;&nbsp;
+          <ion-icon name="md-game-controller-b"></ion-icon>: entertainment &nbsp;&nbsp;
+          <ion-icon name="laptop"></ion-icon>: laptop &nbsp;&nbsp;
+        </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

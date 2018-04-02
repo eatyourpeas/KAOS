@@ -8,10 +8,7 @@ import {
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { EmailValidator } from '../../validators/email';
 import { AuthData } from '../../providers/auth/auth';
-
-import { HomePage } from '../home/home';
-import { SignupPage } from '../signup/signup';
-import { ResetPasswordPage } from '../reset-password/reset-password';
+import { UserProfileProvider } from '../../providers/user-profile/user-profile';
 
 @IonicPage()
 @Component({
@@ -22,12 +19,16 @@ export class LoginPage {
 
   public loginForm: FormGroup;
   public loading: Loading;
+  public userProfileProvider: UserProfileProvider;
 
   constructor(public navCtrl: NavController,
     public loadingCtrl: LoadingController,
     public alertCtrl: AlertController,
     public authProvider: AuthData,
+    public userProfile: UserProfileProvider,
     public formBuilder: FormBuilder) {
+
+      this.userProfileProvider = userProfile;
 
       this.loginForm = formBuilder.group({
       email: ['',
@@ -42,13 +43,42 @@ export class LoginPage {
     if (!this.loginForm.valid){
       console.log(this.loginForm.value);
     } else {
-      this.authProvider.loginUser(this.loginForm.value.email,
+
+      this.authProvider.login(this.loginForm.value.email,
         this.loginForm.value.password)
-      .then( authData => {
-        this.loading.dismiss().then( () => {
-          this.navCtrl.setRoot(HomePage);
-        });
+      .then( loggedInUser => {
+        this.userProfileProvider.userIsLoggingInForFirstTime(loggedInUser.uid).then(res=>{
+          if(res){
+            console.log("this is my first time")
+            this.loading.dismiss().then( () => {
+              this.navCtrl.setRoot('WalkThroughPage');
+            });
+          } else {
+            console.log("this is not my first time");
+            this.loading.dismiss().then( () => {
+              this.navCtrl.setRoot('HomePage');
+            });
+          }
+        })
+
+
       }, error => {
+        //callback - could not log in error
+        this.loading.dismiss().then( () => {
+          let alert = this.alertCtrl.create({
+            message: error.message,
+            buttons: [
+              {
+                text: "Ok",
+                role: 'cancel'
+              }
+            ]
+          });
+          alert.present();
+        });
+      })
+      .catch((error)=>{
+        //some other error
         this.loading.dismiss().then( () => {
           let alert = this.alertCtrl.create({
             message: error.message,
@@ -64,20 +94,23 @@ export class LoginPage {
       });
       this.loading = this.loadingCtrl.create();
       this.loading.present();
+
     }
   }
 
   goToSignup(): void {
-    this.navCtrl.push(SignupPage);
+    this.navCtrl.push('SignupPage');
   }
 
   goToResetPassword(): void {
-    this.navCtrl.push(ResetPasswordPage);
+    this.navCtrl.push('ResetPasswordPage', {
+      'wasFirstTime': false
+    });
   }
 
 
   ionViewDidLoad() {
-  //  console.log('ionViewDidLoad LoginPage');
+
   }
 
 }

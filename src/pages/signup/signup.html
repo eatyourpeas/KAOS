@@ -18,7 +18,7 @@
     <ion-row>
       <ion-col col-2>
         <div>
-          <img class="kaos-icon" src="assets/imgs/kaos512.png"/>
+          <img class="kaos-icon" src="assets/imgs/KAOS800_round.png"/>
         </div>
       </ion-col>
       <ion-col>
@@ -35,25 +35,34 @@
         </div>
       </ion-col>
     </ion-row>
+    <ion-row align-items-center>
+
+      <div class="signupform">
+        <form [formGroup]="signupForm" (submit)="signupUser()" novalidate>
+
+            <ion-item>
+              <ion-label stacked>Email</ion-label>
+              <ion-input formControlName="email" type="email" placeholder="Your email address"
+                [class.invalid]="!signupForm.controls.email.valid && blur">
+              </ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label stacked>Password</ion-label>
+              <ion-input formControlName="password" type="password" placeholder="Your password"
+                [class.invalid]="!signupForm.controls.password.valid && blur">
+              </ion-input>
+            </ion-item>
+
+            <div class="submitbutton">
+              <button ion-button block type="submit" [disabled]="!signupForm.valid">
+                Create an Account
+              </button>
+            </div>
+        </form>
+      </div>
+    </ion-row>
   </ion-grid>
-    <form [formGroup]="signupForm" (submit)="signupUser()" novalidate>
 
-    <ion-item>
-      <ion-label stacked>Email</ion-label>
-      <ion-input formControlName="email" type="email" placeholder="Your email address"
-        [class.invalid]="!signupForm.controls.email.valid && blur">
-      </ion-input>
-    </ion-item>
 
-    <ion-item>
-      <ion-label stacked>Password</ion-label>
-      <ion-input formControlName="password" type="password" placeholder="Your password"
-        [class.invalid]="!signupForm.controls.password.valid && blur">
-      </ion-input>
-    </ion-item>
-
-    <button ion-button block type="submit" [disabled]="!signupForm.valid">
-      Create an Account
-    </button>
-  </form>
 </ion-content>

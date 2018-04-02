@@ -1,0 +1,25 @@
+page-roster {
+  .KAOSToday{
+    font-family: "IBM Plex Serif";
+    background-color: map-get($colors, primary);
+    vertical-align: middle;
+    padding: inherit;
+    color: white;
+    text-align: center;
+    font-size: 1.4em;
+    padding: 10px;
+  }
+  .buttonGroup {
+    text-align: center;
+  }
+  .KAOSThisWeek{
+    font-family: "IBM Plex Serif";
+    background-color: white;
+    vertical-align: middle;
+    padding: inherit;
+    color: map-get($colors, primary);
+    text-align: center;
+    font-size: 1.4em;
+    padding: 10px;
+  }
+}

@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { QuizPage } from '../quiz/quiz'
-import { ListPage } from '../list/list';
-import { ContactsPage } from '../contacts/contacts';
-import { AboutPage } from '../about/about';
+import { NavController, IonicPage } from 'ionic-angular';
 
+@IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -20,19 +17,19 @@ export class HomePage {
   }
 
   goQuiz(){
-    this.navCtrl.push(QuizPage);
+    this.navCtrl.push('QuizPage');
   }
 
   goContacts(){
-    this.navCtrl.push(ContactsPage);
+    this.navCtrl.push('ContactsPage');
   }
 
   goAbout(){
-    this.navCtrl.push(AboutPage);
+    this.navCtrl.push('AboutPage');
   }
 
   goList(){
-    this.navCtrl.push(ListPage);
+    this.navCtrl.push('ListPage');
   }
 
 }

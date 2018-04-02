@@ -1,0 +1,13 @@
+page-ward-detail {
+  .wardDetail {
+    color: map-get($colors, primary);
+    font-family: "IBM Plex Serif";
+  }
+  .wardTitle {
+    font-family: "Roboto Light";
+  }
+  .key {
+    border: 2px solid map-get($colors, primary);
+    font-family: "Roboto Light";
+  }
+}
