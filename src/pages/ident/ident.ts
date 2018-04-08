@@ -27,6 +27,7 @@ export class IdentPage {
 
   isEditable = false;
   viewTitle;
+  isFirstTime = false;
 
   myAvatar;
 
@@ -37,7 +38,7 @@ export class IdentPage {
               public navParams: NavParams,
               public loadingCtrl: LoadingController,
               public alertCtrl: AlertController,
-              private formBuilder: FormBuilder,
+              public formBuilder: FormBuilder,
               public authP: AuthData,
               public userProfileProvider: UserProfileProvider
     ) {
@@ -56,6 +57,8 @@ export class IdentPage {
     } else {
       this.isEditable = false
     }
+
+
 
     //use userid to get the full profile
     this.userProfiles = this.userProfileProvider.getProfileForUser(this.user_id)
@@ -102,6 +105,14 @@ export class IdentPage {
       this.myAvatar = "/assets/imgs/heads/doctor.jpg";
     });
 
+    if(this.navParams.get('first_time')){
+      this.isFirstTime = true;
+    } else {
+      this.isFirstTime = false
+    }
+
+    console.log("this is first time: "+ this.isFirstTime);
+
 
 
   }
@@ -132,7 +143,15 @@ export class IdentPage {
               buttons: [
                 {
                   text: "Ok",
-                  role: 'cancel'
+                  handler:()=>{
+                    if(this.isFirstTime){
+                      this.navCtrl.setRoot('WalkThroughPage', {
+                        hasResetPassword: true
+                      });
+                    } else {
+                      this.navCtrl.pop();
+                    }
+                  }
                 }
               ]
             });

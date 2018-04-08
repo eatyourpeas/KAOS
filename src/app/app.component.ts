@@ -1,7 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
+import { Plugins } from '@capacitor/core';
+//import { StatusBar } from '@ionic-native/status-bar';
+//import { SplashScreen } from '@ionic-native/splash-screen';
 //import { FCM } from '@ionic-native/fcm';
 
 //import { HomePage } from '../pages/home/home';
@@ -38,8 +39,16 @@ export class MyApp {
   myAvatar: string;
   user_id: string;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public afAuth: AngularFireAuth, private profileProvider: UserProfileProvider, public auth: AuthData) {
+  constructor(
+    public platform: Platform,
+    public afAuth: AngularFireAuth,
+    private profileProvider: UserProfileProvider,
+    public auth: AuthData
+  ) 
+  {
     this.initializeApp();
+
+    //removed: public statusBar: StatusBar, public splashScreen: SplashScreen,
 /*
     this.fcm.getToken().then(token => {
   // Your best bet is to here store the token on the user's profile on the
@@ -81,8 +90,8 @@ export class MyApp {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
+  //    this.statusBar.styleDefault();
+  //    this.splashScreen.hide();
 
       this.afAuth.authState.subscribe(res => {
         if (res && res.uid) {

@@ -22,4 +22,19 @@ page-roster {
     font-size: 1.4em;
     padding: 10px;
   }
+
+  button {
+  	ion-badge {
+  		position: absolute;
+      border-radius: 50%;
+      background-color: red;
+  		top: -0.2rem;
+  		right: -0.2rem;
+  		opacity: 0.9;
+  	}
+  }
+
+  ion-alert.select-alert.single-select-alert .alert-radio-label {
+    white-space: pre-wrap;
+  }
 }

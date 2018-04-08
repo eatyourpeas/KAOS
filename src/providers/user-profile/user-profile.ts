@@ -13,7 +13,7 @@ import { AuthData } from '../auth/auth';
   and Angular DI.
 */
 
-export interface UserProfile { id: string, title: string, first_name: string, second_name: string, uid: string, role: string, secondary_role: string, service: string, bio: string, mobile: string, admin: boolean, email: string, centre: string, first_time: boolean, token: string }
+export interface UserProfile { id: string, title: string, first_name: string, second_name: string, uid: string, role: string, secondary_role: string, service: string, bio: string, mobile: string, admin: boolean, email: string, centre: string, first_time: boolean, token: [string] }
 
 @Injectable()
 export class UserProfileProvider {
@@ -122,14 +122,20 @@ setTokenForCurrentUser(token): Promise<boolean>{
   return new Promise((resolve, reject)=>{
   let myProfile = this.getProfileForUser(this.auth.getLoggedInUserId());
   myProfile.subscribe(res =>{
-    res[0].token = token;
-    this.userProfileCollection.doc(res[0].id).update(res[0]).then(updatedObj =>{
-      if(updatedObj){
-        resolve(true);
-      } else {
-        resolve(false);
-      }
-    })
+
+    if(!res[0].token.indexOf(token)){
+      res[0].token.push(token);
+      this.userProfileCollection.doc(res[0].id).update(res[0]).then(updatedObj =>{
+        if(updatedObj){
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      })
+    } else {
+      resolve(true);
+    }
+
   })
 });
 }

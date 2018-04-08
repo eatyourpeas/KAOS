@@ -8,7 +8,7 @@ export class FirebaseMessagingProvider {
   private unsubscribeOnTokenRefresh = () => {};
 
   constructor(
-    private app: FirebaseApp,
+    public app: FirebaseApp,
     private userProfileProvider: UserProfileProvider
   ) {
     this.messaging = app.messaging();

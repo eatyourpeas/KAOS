@@ -51,7 +51,9 @@ export class LoginPage {
           if(res){
             console.log("this is my first time")
             this.loading.dismiss().then( () => {
-              this.navCtrl.setRoot('WalkThroughPage');
+              this.navCtrl.setRoot('WalkThroughPage', {
+                hasResetPassword: false
+              });
             });
           } else {
             console.log("this is not my first time");

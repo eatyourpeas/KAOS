@@ -3,7 +3,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
-import { SMS } from '@ionic-native/sms';
+//import { SMS } from '@ionic-native/sms';
 
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabase, AngularFireDatabaseModule } from 'angularfire2/database';
@@ -61,7 +61,7 @@ export const firebaseConfig = {
     WardsProvider,
     UserProfileProvider,
     DatesProvider,
-    SMS,
+//    SMS,
     FirebaseMessagingProvider
   ]
 })

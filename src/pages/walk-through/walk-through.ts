@@ -16,39 +16,53 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 })
 export class WalkThroughPage {
 
+  hasResetPassword: boolean = false;
+  progress: string = "Change my password!";
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
-  //  console.log('ionViewDidLoad WalkThroughPage');
+    this.hasResetPassword = this.navParams.get('hasResetPassword');
+    if(this.hasResetPassword){
+      this.progress = "Got it!";
+    }
   }
 
   gotIt(){
-    this.navCtrl.setRoot('ResetPasswordPage', {
-      'wasFirstTime': true
-    });
+    if(this.hasResetPassword){
+      this.navCtrl.setRoot('HomePage');
+    } else {
+      this.navCtrl.setRoot('ResetPasswordPage', {
+        'wasFirstTime': true
+      });
+    }
   }
 
   cancel(){
-    console.log('cancel');
-    let alert = this.alertCtrl.create({
-      message: "<H2>You need to change your password before anything else</H2>",
-      buttons: [
-        {
-          text: "Ok",
-          handler: ()=>{
-            this.navCtrl.setRoot('ResetPasswordPage', {
-              'wasFirstTime': true
-            });
+    if(this.hasResetPassword){
+      this.navCtrl.setRoot('HomePage');
+    } else {
+      let alert = this.alertCtrl.create({
+        message: "<H2>You need to change your password before anything else</H2>",
+        buttons: [
+          {
+            text: "Ok",
+            handler: ()=>{
+              this.navCtrl.setRoot('ResetPasswordPage', {
+                'wasFirstTime': true
+              });
+            }
+          },
+          {
+            text: 'Cancel',
+            role: 'cancel'
           }
-        },
-        {
-          text: 'Cancel',
-          role: 'cancel'
-        }
-      ]
-    });
-    alert.present();
+        ]
+      });
+      alert.present();
+    }
+
   }
 
 }

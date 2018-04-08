@@ -34,7 +34,8 @@ export class TeamMembersPage {
 
     this.navCtrl.push('IdentPage', {
       user_id: user_id,
-      edit: editable
+      edit: editable,
+      first_time: false
     })
 
   }

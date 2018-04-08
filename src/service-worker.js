@@ -22,8 +22,9 @@ messaging.setBackgroundMessageHandler(function(payload) {
   // here you can override some options describing what's in the message;
   // however, the actual content will come from the Webtask
   const notificationOptions = {
-    icon: '/assets/images/KAOS128.png'
+    icon: '/assets/imgs/icon-128x128.png'
   };
+//  var notificationTitle = 'Background Message Title';
   return self.registration.showNotification(notificationTitle, notificationOptions);
 });
 

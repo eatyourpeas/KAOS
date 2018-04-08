@@ -45,19 +45,23 @@ export class SignupPage {
           if(response == "Success"){
             this.loading.dismiss().then( () => {
               let alert = this.alertCtrl.create({
-                message: "<h1>Congratulations!</h1> Account created! Now complete your profile. This will be visible to all, though your contact details will only be visible to other KAOS Clinicians.",
+                message: "<h2>Congratulations!</h2><h3>Account created</h3>Next, please complete your profile. This will be visible to all, though your contact details will only be visible to other KAOS Clinicians.",
                 buttons: [
                   {
                     text: "Ok",
-                    role: 'cancel'
+                    handler:()=>{
+                      this.navCtrl.pop();
+                      this.navCtrl.setRoot('IdentPage', {
+                        user_id: this.auth.getLoggedInUserId(),
+                        edit: true,
+                        first_time: true
+                      });
+                    }
                   }
                 ]
               });
               alert.present();
-              this.navCtrl.setRoot('IdentPage', {
-                user_id: this.auth.getLoggedInUserId(),
-                edit: true
-              });
+
             });
           } else {
             this.loading.dismiss().then( () => {

@@ -84,8 +84,8 @@
       </div>
     </ion-row>
     <h2>That's it!</h2>
-    <h6>Before you go any further though you need to change your password.</h6>
-    <button ion-button (click)="gotIt()">Change my password!</button>
+    <h6 *ngIf="!hasResetPassword">Before you go any further though you need to change your password.</h6>
+    <button ion-button (click)="gotIt()">{{progress}}</button>
   </ion-slide>
 
 </ion-slides>

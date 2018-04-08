@@ -2,7 +2,7 @@
 <widget id="uk.co.eatyourpeas.kaos" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>kaos</name>
     <description>An app for young people inpatient at King's</description>
-    <author email="eatyourpeasapps@gmail.com" href="http://ionicframework.com/">eatyourpeasapps</author>
+    <author email="eatyourpeasapps@gmail.com" href="http://eatyourpeas.co.uk/">eatyourpeasapps</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -88,7 +88,5 @@
         <resource-file src="GoogleService-Info.plist" target="resources/GoogleService-Info.plist" />
     </platform>
     <plugin name="cordova-sms-plugin" spec="^0.1.11" />
-    <engine name="android" spec="6.4.0" />
-    <engine name="ios" spec="4.5.4" />
     <engine name="browser" spec="5.0.3" />
 </widget>

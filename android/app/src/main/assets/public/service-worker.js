@@ -7,12 +7,13 @@
 'use strict';
 importScripts('./build/sw-toolbox.js');
 importScripts('https://www.gstatic.com/firebasejs/4.9.0/firebase-app.js');
-importScripts('https://www.gstatic.com/firebasejs/4.9.0/firebase-messaging');
+importScripts('https://www.gstatic.com/firebasejs/4.9.0/firebase-messaging.js');
 
-firebase.initializeApp({
-  // get this from Firebase console, Cloud messaging section
-  'messagingSenderId': '409614203748'
-});
+firebase.initializeApp(  // get this from Firebase console, Cloud messaging section
+  {
+  'messagingSenderId': "409614203748"
+  }
+);
 
 const messaging = firebase.messaging();
 
@@ -21,8 +22,9 @@ messaging.setBackgroundMessageHandler(function(payload) {
   // here you can override some options describing what's in the message;
   // however, the actual content will come from the Webtask
   const notificationOptions = {
-    icon: '/assets/images/logo-128.png'
+    icon: '/assets/imgs/icon-128x128.png'
   };
+//  var notificationTitle = 'Background Message Title';
   return self.registration.showNotification(notificationTitle, notificationOptions);
 });
 

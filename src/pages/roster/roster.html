@@ -20,6 +20,9 @@
     <ion-calendar #calendar [events]="currentEvents" (onDaySelect)="onDaySelect($event)" (onMonthSelect)="onMonthSelect($event)"></ion-calendar>
     <div class="buttonGroup">
       <button ion-button (click)="calendar.today()">Today</button>
+      <button ion-button clear *ngIf="thereAreOutstandingSwaps" (click)="swap()">Accept Swaps
+        <ion-badge *ngIf="thereAreOutstandingSwaps">{{numberOfOutstandingSwaps}}</ion-badge>
+      </button>
       <button ion-button (click)="requestSwap()" [disabled] = "!thereIsAKAOSClinicianAvailableToday">Request Swap</button>
       <button ion-button *ngIf="loggedInUserIsAdmin" (click)="addRosterDate($event)">Allocate</button>
     </div>
