@@ -63,10 +63,13 @@ H6, p, .signout {
     height: 70vh;
     width: 100px !important;
     height: auto;
-//margin: auto !important;
-//display: block !important;
 }
 
+.alert-md .alert-checkbox-label,
+.alert-ios .alert-checkbox-label
+{
+white-space: normal !important;
+}
 
 
 flash-card {

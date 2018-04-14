@@ -1,3 +1,5 @@
+'use strict';
+
 const functions = require('firebase-functions');
 const nodemailer = require('nodemailer');
 const admin = require('firebase-admin');
@@ -31,63 +33,41 @@ const mailTransport = nodemailer.createTransport({
 // Send email function
 function sendEmail(email, body) {
   const mailOptions = {
-    from: `<noreply@domain.com>`,
+    from: `<noreply@KAOS.team>`,
     to: email
   };
   // hmtl message constructions
-  mailOptions.subject = 'contact form message';
+  mailOptions.subject = 'KAOS Swap Request';
   mailOptions.html = `<p><b>Name: </b>${body.rsName}</p>
                       <p><b>Email: </b>${body.rsEmail}</p>
                       <p><b>Subject: </b>${body.rsSubject}</p>
-                      <p><b>Message: </b>${body.rsMessage}</p>`;
+                      <p><b>Message: </b>${body.rsMessage}</p><p> Warm wishes from the KAOS team</p>`;
   return mailTransport.sendMail(mailOptions);
-}
-
-function dateForID(dateID){
-  var datesRef = admin.firestore().collection('Dates').where("id", "==", dateID);
-  datesRef.get()
-  .then(querySnapshot => {
-        return querySnapshot.forEach(doc => {
-            // doc.data() is never undefined for query doc snapshots
-        });
-    })
-    .catch(error => {
-        console.log("Error getting documents: ", error);
-    });
 }
 
 /*-----------------
 ///public functions
 ---------------------*/
 
-exports.swapShifts = functions.https.onCall((data) => {
-
-
-  const swapFromDateID = data.swapFromDateID;
-
-  const swapToDateID = data.swapToDateID;
-  const swapWithUserUID = data.swapWithUserUID;
-  const swapWithUserEmail = data.swapWithUserEmail;
-  const swapWithUserName = data.swapWithUserName;
-  const swapRequestUID = data.swapRequestUID;
-  const swapRequestEmail = data.swapRequestEmail;
-
-  const swapFromDate = dateForID(swapToDateID);
-
-
-  //
-  //const swapToDate =
-
-  //var response = swapRequestEmail + " has requested you work " + swapToDate + ' instead of ' + swapFromDate;
-
-  return "response success ";
-
-});
-
 exports.swapSaved = functions.firestore
 .document('SwapRequests/{id}')
 .onCreate((snap, context) => {
   const newValue = snap.data();
-  console.log("You have saved the swap "+ newValue.id);
 
+  var recipientBody = {
+    rsName: newValue.recipient_name,
+    rsEmail: newValue.recipient_email,
+    rsSubject: "KAOS Swap Request",
+    rsMessage: newValue.requester_name + " has requested that you work " + newValue.swap_to_date + " in exchange for " + newValue.swap_from_date + ". Please log in to approve the request."
+  }
+
+  var requesterBody = {
+    rsName: newValue.recipient_name,
+    rsEmail: newValue.recipient_email,
+    rsSubject: "KAOS Swap Request",
+    rsMessage: "You have requested that " + newValue.recipient_name + " work " + newValue.swap_to_date + " in exchange for " + newValue.swap_from_date + ". " + + newValue.recipient_name + " has been notified by email and you will receive confirmation once they have approved your request."
+  }
+
+  //sendEmail(newValue.recipient_email, recipientBody);
+  return "";//sendEmail(newValue.requester_email, requesterBody);
 })

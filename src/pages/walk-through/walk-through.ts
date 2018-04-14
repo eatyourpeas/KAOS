@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { UserProfileProvider } from '../../providers/user-profile/user-profile';
+import { AuthData } from '../../providers/auth/auth';
 
 
 /**
@@ -19,7 +21,12 @@ export class WalkThroughPage {
   hasResetPassword: boolean = false;
   progress: string = "Change my password!";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public alertCtrl: AlertController,
+    public userProfileProvider: UserProfileProvider,
+    public authProvider: AuthData) {
   }
 
   ionViewDidLoad() {
@@ -31,7 +38,15 @@ export class WalkThroughPage {
 
   gotIt(){
     if(this.hasResetPassword){
-      this.navCtrl.setRoot('HomePage');
+      this.userProfileProvider.setUserHasLoggedInForFirstTimeAndChangedPassword(this.authProvider.getLoggedInUserId()).then(result=>{
+        if(true){
+          console.log('password updated and tutorial done');
+          this.navCtrl.setRoot('HomePage');
+        }
+      }).catch(error =>{
+        console.log(error.message);
+      });
+
     } else {
       this.navCtrl.setRoot('ResetPasswordPage', {
         'wasFirstTime': true

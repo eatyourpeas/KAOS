@@ -20,9 +20,10 @@
     <ion-calendar #calendar [events]="currentEvents" (onDaySelect)="onDaySelect($event)" (onMonthSelect)="onMonthSelect($event)"></ion-calendar>
     <div class="buttonGroup">
       <button ion-button (click)="calendar.today()">Today</button>
-      <button ion-button clear *ngIf="thereAreOutstandingSwaps" (click)="swap()">Accept Swaps
-        <ion-badge *ngIf="thereAreOutstandingSwaps">{{numberOfOutstandingSwaps}}</ion-badge>
-      </button>
+
+        <button id="notifications-button" clear ion-button *ngIf="thereAreOutstandingSwaps" (click)="swap()">Accept Swaps
+          <ion-badge id="notification-badge" *ngIf="thereAreOutstandingSwaps">{{numberOfOutstandingSwaps}}</ion-badge>
+        </button>
       <button ion-button (click)="requestSwap()" [disabled] = "!thereIsAKAOSClinicianAvailableToday">Request Swap</button>
       <button ion-button *ngIf="loggedInUserIsAdmin" (click)="addRosterDate($event)">Allocate</button>
     </div>
@@ -31,6 +32,14 @@
     <div class="KAOSToday">
       {{roster_date}}: {{KAOSClinicianOnCall}}
     </div>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
     <ion-list *ngIf="thisWeeksRoster?.length > 0; else norosterthisweek">
       <ion-list-header>
         <h1>This Week</h1>

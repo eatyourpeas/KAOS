@@ -22,19 +22,27 @@ page-roster {
     font-size: 1.4em;
     padding: 10px;
   }
-
+/*
   button {
   	ion-badge {
   		position: absolute;
-      border-radius: 50%;
-      background-color: red;
   		top: -0.2rem;
   		right: -0.2rem;
   		opacity: 0.9;
   	}
   }
-
-  ion-alert.select-alert.single-select-alert .alert-radio-label {
-    white-space: pre-wrap;
+  */
+  #notification-badge {
+    font-size: 1.3rem;
+    z-index: -1; position:relative;
+    top: -0.8rem;
+    right: 0.8rem;
   }
+
+  .buttonGroup {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: transparent;
+  }
+
 }

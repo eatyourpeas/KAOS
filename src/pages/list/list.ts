@@ -24,7 +24,7 @@ export class ListPage {
     {title: 'Privacy and Security', note: "What happens to my information?", icon: "lock", page_name: 'PrivacyPage'},
     {title: 'Internet Access', note: "How do I get a wifi code?", icon: "wifi", page_name: 'InternetPage'},
     {title: 'Gender & Sexuality', note: "Who can I ask if I have questions?", icon: "transgender", page_name: 'GenderPage'},
-    {title: 'Smoking, Drugs & Alcohol', note: "My health, smoking, drugs and alcohol", icon: "wine", page_name: 'SubstancesPage'},
+    {title: 'Smoking, Drugs & Alcohol', note: "My health, smoking, drugs and alcohol", icon: "wine", page_name: 'DrugsPage'},
     {title: 'Gangs', note: "About gangs and safety", icon: "people", page_name: 'GangsPage'},
     {title: 'Legal', note: "My rights, responsibilities and the Law", icon: "ribbon", page_name: 'LegalPage'},
     {title: 'School & Education', note: "Hospital and my studies", icon: "school", page_name: 'SchoolsPage'},
