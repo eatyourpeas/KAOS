@@ -3,7 +3,9 @@ page-home {
     width: 100% !important;
     height:0 !important;
     padding: 50% 0 50% 0 !important;
-    background-color: #015ace;
-    background-image: url("../../assets/imgs/KAOSWallpaper.png");
+    background-color: map-colors($colors, primary);
+    border-radius: 5%;
+    font-family: "IBM Plex Serif";
+  //  background-image: url("../../assets/imgs/KAOSWallpaper.png");
   }
 }

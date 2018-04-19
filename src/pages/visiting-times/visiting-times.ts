@@ -22,7 +22,7 @@ export class VisitingTimesPage {
     //console.log('ionViewDidLoad VisitingTimesPage');
   }
 
-  goTheWards(){
+  goWards(){
     this.navCtrl.push('WardsPage');
   }
 

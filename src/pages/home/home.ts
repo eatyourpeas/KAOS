@@ -20,8 +20,8 @@ export class HomePage {
     this.navCtrl.push('QuizPage');
   }
 
-  goContacts(){
-    this.navCtrl.push('ContactsPage');
+  goTeam(){
+    this.navCtrl.push('TeamMembersPage');
   }
 
   goAbout(){

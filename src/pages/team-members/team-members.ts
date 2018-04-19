@@ -16,12 +16,14 @@ export class TeamMembersPage {
   isAuth: boolean = false;
   avatar;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public userProfileProvider: UserProfileProvider, private auth: AuthData){
-    this.userProfileProvider.getAllProfiles().subscribe(res =>{
-      this.team_members = res;
-    })
-
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public userProfileProvider: UserProfileProvider,
+    private auth: AuthData){
+    
   }
+
 
   onSelect(user_id){
 
@@ -56,6 +58,10 @@ export class TeamMembersPage {
     } else {
       this.isAuth = false;
     }
+
+    this.userProfileProvider.getAllProfiles().subscribe(res =>{
+      this.team_members = res;
+    })
 
   }
 

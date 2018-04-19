@@ -42,7 +42,40 @@ ion-input, ion-select, ion-textarea{
   color: map-get($colors, primary);
 }
 
-H6, p, .signout {
+/// card
+
+ion-card-header {
+  background-color: map-get($colors, primary);
+}
+
+ion-card-content {
+
+}
+
+.card-content-text {
+  font-family: "Roboto Light";
+  text-align: left;
+  margin-top: 14px;
+  color: #808080;
+}
+
+.card-title {
+  font-family: "IBM Plex Serif";
+  vertical-align: middle;
+  padding: inherit;
+  color: white;
+  font-size: 1.4em;
+  padding: 10px;
+}
+
+.link {
+  display: inline;
+  color: map-get($colors, primary);
+}
+
+////
+
+H6, p .signout {
   font-family: "Roboto Light"
 }
 

@@ -1,24 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
-import { Plugins } from '@capacitor/core';
-//import { StatusBar } from '@ionic-native/status-bar';
-//import { SplashScreen } from '@ionic-native/splash-screen';
-//import { FCM } from '@ionic-native/fcm';
-
-//import { HomePage } from '../pages/home/home';
-//import { QuizPage } from '../pages/quiz/quiz'
-//import { ListPage } from '../pages/list/list';
-//import { TeamMembersPage } from '../pages/team-members/team-members';
-//import { ContactsPage } from '../pages/contacts/contacts';
-//import { AboutPage } from '../pages/about/about';
-
-//import { LoginPage } from '../pages/login/login';
-//import { RosterPage } from '../pages/roster/roster';
-//import { IdentPage } from '../pages/ident/ident';
-
+//import { Plugins } from '@capacitor/core';
 import { AuthData } from '../providers/auth/auth';
 import { UserProfileProvider } from '../providers/user-profile/user-profile';
-
 import { AngularFireAuth } from 'angularfire2/auth';
 
 
@@ -44,7 +28,7 @@ export class MyApp {
     public afAuth: AngularFireAuth,
     private profileProvider: UserProfileProvider,
     public auth: AuthData
-  ) 
+  )
   {
     this.initializeApp();
 
@@ -63,8 +47,7 @@ export class MyApp {
       { title: 'About KAOS', component: 'AboutPage' },
       { title: 'Meet The Team', component: 'TeamMembersPage' },
       { title: 'Resources', component: 'ListPage' },
-      { title: 'Quiz', component: 'QuizPage' },
-      { title: 'Useful Contacts', component: 'ContactsPage' }
+      { title: 'Quiz', component: 'QuizPage' }
     ];
 
     //this.auth = authD;
@@ -133,7 +116,6 @@ export class MyApp {
       this.nav.setRoot(page.component);
     } else {
       this.auth.logout();
-      //firebase.auth().signOut();
       this.isAuth = false;
       //this.nav.setRoot("LoginPage"); - used if force login on open
     }

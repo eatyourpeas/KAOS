@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { Observable } from 'rxjs/Observable';
 import { AuthData } from '../../providers/auth/auth';
 import { DatesProvider } from '../../providers/dates/dates'
 import { UserProfileProvider } from '../../providers/user-profile/user-profile';
@@ -319,7 +318,7 @@ export class RosterPage {
   getThisWeeksDates(): Promise<any>{
     let thisWeeksRosterNow = [];
     return new Promise<any>((resolve, reject)=>{
-    let thisWeeksDates = this.datesProvider.getThisWeeksDates().subscribe(res=>{
+    this.datesProvider.getThisWeeksDates().subscribe(res=>{
       if(res.length > 0){
         res.forEach(doc =>{
           this.userProfileProvider.getProfileForUser(doc.user).subscribe(res =>{

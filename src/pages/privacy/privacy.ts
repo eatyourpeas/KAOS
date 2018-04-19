@@ -19,7 +19,7 @@ export class PrivacyPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PrivacyPage');
+  //  console.log('ionViewDidLoad PrivacyPage');
   }
 
 }

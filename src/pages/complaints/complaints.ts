@@ -19,7 +19,7 @@ export class ComplaintsPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ComplaintsPage');
+  //  console.log('ionViewDidLoad ComplaintsPage');
   }
 
 }

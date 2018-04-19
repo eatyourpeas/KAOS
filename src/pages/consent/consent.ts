@@ -19,7 +19,7 @@ export class ConsentPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ConsentPage');
+  //  console.log('ionViewDidLoad ConsentPage');
   }
 
 }

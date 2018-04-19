@@ -15,7 +15,7 @@
 
 <ion-content padding="">
   <ion-list >
-    <button ion-item *ngFor="let ward of ward_data" (click)="itemTapped($event, ward)">
+    <button ion-item *ngFor="let ward of ward_data" (click)="itemTapped($event, ward)" detail>
       <!--ion-icon [name]="item.icon" item-start></ion-icon-->
       <div class="wardTitle">
         {{ward.ward_name}}

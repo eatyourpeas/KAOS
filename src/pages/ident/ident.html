@@ -43,11 +43,11 @@
           <ion-input [formControl]="profileForm.controls['second_name']" type="text" value={{(currentUserProfile)?.second_name}} [class.invalid]="!profileForm.controls.second_name.valid && blur" ></ion-input>
         </ion-item>
 
-        <button ion-item *ngIf="isAuth" (click)="makeCall(currentUserProfile?.mobile)">
+        <ion-item *ngIf="isAuth"> <!--(click)="makeCall(currentUserProfile?.mobile)"-->
             <ion-label fixed>Mobile</ion-label>
             <ion-input [formControl]="profileForm.controls['mobile']" type="tel" value={{(currentUserProfile)?.mobile}} [class.invalid]="!profileForm.controls.mobile.valid && blur"></ion-input>
-            <ion-icon name="call" item-end class="phone"></ion-icon>
-        </button>
+            <a ion-button clear href="tel:(currentUserProfile)?.mobile" item-end><ion-icon name="call" class="phone" ></ion-icon></a>
+        </ion-item>
 
         <ion-item>
           <ion-label fixed>Centre</ion-label>

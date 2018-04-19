@@ -43,28 +43,30 @@ $colors: (
   dark:       #013982
 );
 
+$card-md-header-color: #fff;
+$card-ios-header-color: #fff;
+$card-wp-header-color: #fff;
+
 
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
 
-$badge-md-border-radius : 10px;
 
+$badge-ios-border-radius : 10px;
 
 
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
 
-
-
+$badge-md-border-radius : 10px;
 
 // App Windows Variables
 // --------------------------------------------------
 // Windows only Sass variables can go here
 
-
-
+$badge-wp-border-radius : 10px;
 
 // App Theme
 // --------------------------------------------------
@@ -72,6 +74,9 @@ $badge-md-border-radius : 10px;
 // then be future customized. This import comes last
 // so that the above variables are used and Ionic's
 // default are overridden.
+
+$item-md-detail-push-show: true;
+$item-wp-detail-push-show: true;
 
 @import "ionic.theme.default";
 
@@ -100,4 +105,10 @@ $badge-md-border-radius : 10px;
   font-family: 'IBM Plex Serif';
   font-style: medium;
   src: url('../assets/fonts/IBM_Plex_Serif/IBMPlexSerif-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Roboto Light';
+  font-style: light;
+  src: url('../assets/fonts/Roboto/Roboto-Light.ttf');
 }

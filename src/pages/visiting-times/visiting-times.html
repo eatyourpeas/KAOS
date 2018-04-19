@@ -17,19 +17,31 @@
 
 
 <ion-content padding>
-  <H1>Who Can Visit?</H1>
-  <p>Having visitors can really lift your spirits when you’re in hospital. King’s welcomes
-guests, whether they are friends, relatives or carers. Generally speaking, visiting times are in the
-afternoon, usually around 2-8pm but this varies according to the ward. Each ward will also have
-limits on the number of guests you can welcome, normally not more than two, so do check out our Wards page for more information to make absolutely sure.<br>
-<button ion-button icon-only clear (click)="goTheWards()">
-  <ion-icon name="clock"></ion-icon>
-</button>
-<p>In some wards, you need to ask permission for children to visit or they must be accompanied by an adult – so if you’ve got siblings wanting to visit,
-ask your medical team in advance.</p>
-<p>King’s is a big place! If your visitors are struggling to find you, ask them to call the help desk on 020
-3299 9000. Providing some basic details about you (name, address, date of birth) will allow staff to
-find your location and direct them.</p>
-<p>For general advice about visiting people in hospital, head on over to the NHS page on <a href="https://www.nhs.uk/NHSEngland/AboutNHSservices/NHShospitals/Pages/visitors.aspx">‘Visiting
-someone in hospital’</a></p>
+  <ion-card>
+    <ion-card-header>
+      <div class="card-title">
+        Who Can Visit?
+      </div>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="card-content-text">
+        Having visitors can really lift your spirits when you’re in hospital. King’s welcomes
+        guests, whether they are friends, relatives or carers. Generally speaking, visiting times are in the
+        afternoon, usually around 2-8pm but this varies according to the ward. Each ward will also have
+        limits on the number of guests you can welcome, normally not more than two, so do check out our <div class="link" (click)="goWards()">Wards page</div> for more information to make absolutely sure.
+      </div>
+      <div class="card-content-text">
+        In some wards, you need to ask permission for children to visit or they must be accompanied by an adult – so if you’ve got siblings wanting to visit,
+        ask your medical team in advance.
+      </div>
+      <div class="card-content-text">
+        King’s is a big place! If your visitors are struggling to find you, ask them to call the help desk on <a href="+442032999000">020
+        3299 9000</a>. Providing some basic details about you (name, address, date of birth) will allow staff to find your location and direct them.
+      </div>
+      <div class="card-content-text">
+        For general advice about visiting people in hospital, head on over to the NHS page on <a href="https://www.nhs.uk/NHSEngland/AboutNHSservices/NHShospitals/Pages/visitors.aspx">‘Visiting
+        someone in hospital’</a>
+      </div>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

@@ -25,14 +25,14 @@ export class ListPage {
     {title: 'Internet Access', note: "How do I get a wifi code?", icon: "wifi", page_name: 'InternetPage'},
     {title: 'Gender & Sexuality', note: "Who can I ask if I have questions?", icon: "transgender", page_name: 'GenderPage'},
     {title: 'Smoking, Drugs & Alcohol', note: "My health, smoking, drugs and alcohol", icon: "wine", page_name: 'DrugsPage'},
-    {title: 'Gangs', note: "About gangs and safety", icon: "people", page_name: 'GangsPage'},
+//    {title: 'Gangs', note: "About gangs and safety", icon: "people", page_name: 'GangsPage'},
     {title: 'Legal', note: "My rights, responsibilities and the Law", icon: "ribbon", page_name: 'LegalPage'},
     {title: 'School & Education', note: "Hospital and my studies", icon: "school", page_name: 'SchoolsPage'},
-    {title: 'Shops', note: "Where can I get things I need?", icon: "cart", page_name: 'ShopsPage'},
+  //  {title: 'Shops', note: "Where can I get things I need?", icon: "cart", page_name: 'ShopsPage'},
     {title: 'Driving', note: "Implications for driving", icon: "car", page_name: 'DrivingPage'},
-    {title: 'Nutrition', note: "Menus and nutrition advice", icon: "nutrition", page_name: 'NutritionPage'},
-    {title: 'Religion', note: "About my faith", icon: "bookmarks", page_name: 'ReligionPage'},
-    {title: 'Ethnic & Cultural Diversity', note: "My ethnicity and KCH", icon: "globe", page_name: 'EthnicityPage'},
+//    {title: 'Nutrition', note: "Menus and nutrition advice", icon: "nutrition", page_name: 'NutritionPage'},
+//    {title: 'Religion', note: "About my faith", icon: "bookmarks", page_name: 'ReligionPage'},
+//    {title: 'Ethnic & Cultural Diversity', note: "My ethnicity and KCH", icon: "globe", page_name: 'EthnicityPage'},
     {title: 'Complaints', note: "Who do I talk to if I have not been treated fairly?", icon: "alert", page_name: 'ComplaintsPage'}
   ];
 
