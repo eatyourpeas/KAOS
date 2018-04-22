@@ -70,10 +70,10 @@
     // TOP OF METADATA
     {
       "cordova-plugin-camera": "4.0.2",
-      "cordova-plugin-device": "1.1.4",
+      "cordova-plugin-device": "1.1.7",
       "cordova-plugin-firebase": "0.1.25",
-      "cordova-plugin-ionic-webview": "1.1.16",
-      "cordova-plugin-whitelist": "1.3.1",
+      "cordova-plugin-ionic-webview": "1.2.0",
+      "cordova-plugin-whitelist": "1.3.3",
       "cordova-sms-plugin": "0.1.11",
       "ionic-plugin-keyboard": "2.2.1"
     };

@@ -1,9 +1,9 @@
 PODS:
-  - Capacitor (1.0.0-alpha.31):
-    - CapacitorCordova (= 1.0.0-alpha.31)
+  - Capacitor (1.0.0-alpha.33):
+    - CapacitorCordova (= 1.0.0-alpha.33)
     - GCDWebServer (~> 3.0)
-  - CapacitorCordova (1.0.0-alpha.31)
-  - CordovaPlugins (1.0.0-alpha.32):
+  - CapacitorCordova (1.0.0-alpha.33)
+  - CordovaPlugins (1.0.0-alpha.34):
     - CapacitorCordova
   - CordovaPluginsResources (0.0.105)
   - GCDWebServer (3.4.2):
@@ -27,9 +27,9 @@ EXTERNAL SOURCES:
     :path: ../../node_modules/@capacitor/cli/assets/capacitor-cordova-ios-plugins
 
 SPEC CHECKSUMS:
-  Capacitor: 4ad41fae40d7571efcb9cd27635c554cd93c1537
-  CapacitorCordova: 7992e725350de244bd017e0d02e5d17e2ff1f630
-  CordovaPlugins: a9ac30009ab8a904b69147680e7e3da88cec80bd
+  Capacitor: 920aba516cd2bd0643c29ac02c112576e70c9ef4
+  CapacitorCordova: 80791feed41a4d2db8f1883b9506045ff7d35e2c
+  CordovaPlugins: 31bdd377f5ec1c0ee1e3d815aadd3041e0d7f62c
   CordovaPluginsResources: 83a99c2e0c802a4d8f9c424879e6692629089500
   GCDWebServer: 8d67ee9f634b4bb91eb4b8aee440318a5fc6debd
 

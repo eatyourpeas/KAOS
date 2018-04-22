@@ -124,8 +124,33 @@ export class RosterPage {
     });
     this.getOutstandingSwaps()
       .then()
-      .catch(error =>{ console.log(error)});
+      .catch(error =>{ console.log(error)
+    });
+
+    this.datesProvider.getUserForDate(this.selectedDate).subscribe(res=>{
+      if(res.length > 0){
+        this.selectedDateID = res[0].id; //id of selected date
+        this.userProfileProvider.getProfileForUser(res[0].user).subscribe(result => {
+          if(result[0]){
+            this.KAOSClinicianOnCall = result[0].title + " " + result[0].first_name + " " + result[0].second_name;
+            this.KAOSClinicianOnCallUID = result[0].uid;
+            this.KAOSClinicianOnCallEmail = result[0].email;
+            if(this.KAOSClinicianOnCallUID != this.auth.getLoggedInUserId()){
+                this.thereIsAKAOSClinicianAvailableToday = true;
+            } else {
+              this.thereIsAKAOSClinicianAvailableToday = false;
+            }
+          } else {
+            this.KAOSClinicianOnCall = "Unregistered Clinician is on call today";
+          }
+        })
+      } else {
+        this.thereIsAKAOSClinicianAvailableToday = false;
+        this.KAOSClinicianOnCall = "There is no one on call today.";
+      }
+    });
   }
+
 
   ionViewDidLoad() {
 

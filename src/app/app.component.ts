@@ -1,10 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
-//import { Plugins } from '@capacitor/core';
+import { Nav, Platform, AlertController } from 'ionic-angular';
+
+import { Plugins } from '@capacitor/core';
 import { AuthData } from '../providers/auth/auth';
 import { UserProfileProvider } from '../providers/user-profile/user-profile';
 import { AngularFireAuth } from 'angularfire2/auth';
-
+const { Toast } = Plugins;
 
 @Component({
   templateUrl: 'app.html'
@@ -13,6 +14,8 @@ import { AngularFireAuth } from 'angularfire2/auth';
 export class MyApp {
 
   @ViewChild(Nav) nav: Nav;
+
+
 
   rootPage: any = 'HomePage';
   //rootPage: any; //= LoginPage; -force login on open
@@ -27,7 +30,8 @@ export class MyApp {
     public platform: Platform,
     public afAuth: AngularFireAuth,
     private profileProvider: UserProfileProvider,
-    public auth: AuthData
+    public auth: AuthData,
+    public alertCtrl: AlertController
   )
   {
     this.initializeApp();
@@ -68,6 +72,11 @@ export class MyApp {
 
 
   }
+  async show(){
+    await Toast.show({
+      text: 'Hello!'
+    });
+  }
 
   initializeApp() {
     this.platform.ready().then(() => {
@@ -75,6 +84,34 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
   //    this.statusBar.styleDefault();
   //    this.splashScreen.hide();
+
+  // listen to the service worker promise in index.html to see if there has been a new update.
+  // condition: the service-worker.js needs to have some kind of change - e.g. increment CACHE_VERSION.
+  window['isUpdateAvailable']
+  	.then(isAvailable => {
+      console.log("isavailable is called")
+  		if (isAvailable) {
+        console.log("I should be showing a toast")
+        this.alertCtrl.create({
+          title: "KAOS Update",
+          message: "There is a new version of the KAOS app. Click here to refresh",
+          buttons: [
+            {
+              text: 'Cancel',
+              handler: (data: any) => {
+                console.log('Cancel clicked');
+              }
+            },
+            {
+              text: 'Update',
+              handler: ()=>{
+                console.log('Update clicked');
+              }
+            }
+          ]
+        })
+  		}
+  	});
 
       this.afAuth.authState.subscribe(res => {
         if (res && res.uid) {
@@ -104,7 +141,7 @@ export class MyApp {
   }
 
   ionViewDidLoad(){
-
+    this.show();
   }
 
   openPage(page) {

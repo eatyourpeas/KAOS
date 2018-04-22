@@ -32,7 +32,8 @@ export class AuthData {
     "katehunt2@nhs.net",
     "emer.sutherland@nhs.net",
     "d.joshi@nhs.net",
-    "fleur.cantle@nhs.net"
+    "fleur.cantle@nhs.net",
+    "barney.dunn@nhs.net"
   ];
 
   constructor(private firebaseAuth: AngularFireAuth, public afs: AngularFirestore) {

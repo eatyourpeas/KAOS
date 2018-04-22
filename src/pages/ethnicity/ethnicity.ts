@@ -19,7 +19,7 @@ export class EthnicityPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad EthnicityPage');
+  //  console.log('ionViewDidLoad EthnicityPage');
   }
 
 }
