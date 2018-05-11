@@ -15,7 +15,7 @@ import * as firebase from 'firebase/app';
 */
 
 export interface RosterDate { id?: string, user: string, date: Date }
-export interface SwapRequest { id?: string, request_date: Date, requester_id: string, requester_name: string, requester_email: string, recipient_id: string, recipient_name: string, recipient_email: string, swap_from_date_id: string, swap_from_date: string, swap_to_date_id: string, swap_to_date: string, notification: boolean, consumed: boolean, consumed_timestamp: Date }
+export interface SwapRequest { id?: string, request_date: Date, requester_id: string, requester_name: string, requester_email: string, recipient_id: string, recipient_name: string, recipient_email: string, swap_from_date_id: string, swap_from_date: string, swap_to_date_id: string, swap_to_date: string, notification: boolean, consumed: boolean, consumed_timestamp: Date, valid: boolean }
 
 @Injectable()
 export class DatesProvider {
@@ -88,7 +88,7 @@ export class DatesProvider {
 
   outstandingSwaps(user_id){
 
-    this.swapsCollection = this.afs.collection<SwapRequest>('SwapRequests', ref => ref.where('recipient_id', "==", user_id).where('consumed', "==", false));
+    this.swapsCollection = this.afs.collection<SwapRequest>('SwapRequests', ref => ref.where('recipient_id', "==", user_id).where('consumed', "==", false).where('valid', "==", true));
     return this.swapsCollection.snapshotChanges().map(actions =>{
       return actions.map(action =>{
         const data = action.payload.doc.data() as SwapRequest;
@@ -123,6 +123,11 @@ export class DatesProvider {
   consumeSwap(swap_id){
     this.swapsCollection = this.afs.collection<SwapRequest>('SwapRequests');
     this.swapsCollection.doc(swap_id).update({consumed: true}).then(updatedObj=>{console.log("consumed")}).catch(error=>{console.log(error)});
+  }
+
+  invalidateSwap(swap_id){
+    this.swapsCollection = this.afs.collection<SwapRequest>('SwapRequests');
+    this.swapsCollection.doc(swap_id).update({valid: false}).then(updatedObj=>{console.log("invalidated")}).catch(error=>{console.log(error)});
   }
 
 }

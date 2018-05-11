@@ -46,7 +46,7 @@ export class AuthData {
       return this.firebaseAuth
         .auth
         .createUserWithEmailAndPassword(email, password)
-        .then((newUser) => {
+  /*      .then((newUser) => { ///this now happens in the cloud
           //console.log('Success!');
           let hash = md5(email.toLowerCase(), 'hex');
           let final_url = "https://gravatar.com/avatar/" + hash + "?d=mm";
@@ -69,7 +69,7 @@ export class AuthData {
             token: []
           };
           this.afs.collection('UserProfiles').add(newUserProfile);
-        })
+        })*/
         .then((newUser)=>{
           console.log("new profile created");
           return "Success";

@@ -10,7 +10,7 @@ import moment from 'moment';
 export interface RosterDate { id?: string, user: string, date: Date };
 export interface RosterDetails { date: string, user_id: string, user_title: string, user_first_name: string, user_second_name: string, user_email: string, user_mobile: string, user_isAdmin: boolean};
 export interface RosterDateFormat { year: number, month: number, date: number }
-export interface SwapRequest { id?: string, request_date: Date, requester_id: string, requester_name: string, requester_email: string, recipient_id: string, recipient_name: string, recipient_email: string, swap_from_date_id: string, swap_from_date: string, swap_to_date_id: string, swap_to_date: string, notification: boolean, consumed: boolean, consumed_timestamp: Date }
+export interface SwapRequest { id?: string, request_date: Date, requester_id: string, requester_name: string, requester_email: string, recipient_id: string, recipient_name: string, recipient_email: string, swap_from_date_id: string, swap_from_date: string, swap_to_date_id: string, swap_to_date: string, notification: boolean, consumed: boolean, consumed_timestamp: Date, valid: boolean }
 
 @IonicPage()
 @Component({
@@ -241,7 +241,8 @@ export class RosterPage {
                         swap_to_date: moment(this.selectedDate).format("ddd DD MMM YYYY"),
                         notification: false,
                         consumed: false,
-                        consumed_timestamp: null
+                        consumed_timestamp: null,
+                        valid: true
                       }
 
                       this.datesProvider.saveSwapRequest(this.swapRequest).then(doc =>{
@@ -327,6 +328,30 @@ export class RosterPage {
                     this.getAllUserDates().then(res=>{console.log("now got all the user dates again")});;
                     this.getThisWeeksDates().then(res=>{console.log("now got this weeks dates again")});;
                     this.getOutstandingSwaps().then(res=>{console.log("now got the outstanding swaps again")});
+                  }
+                },
+                {
+                  text: "Decline",
+                  handler:(selection: any)=>{
+                    for(let i=0; i<selection.length; i++){
+
+                      let swap = this.datesProvider.getSwap(selection[i]);
+
+                      swap.subscribe(returnedSwap =>{ //must only cycle here once
+                          //update the from date which comes which from the requester
+                          returnedSwap.forEach(eachReturnedSwap=>{
+
+                            this.datesProvider.invalidateSwap(selection[i]);
+                            this.numberOfOutstandingSwaps --;
+                            if(this.numberOfOutstandingSwaps == 0){
+                              this.thereAreOutstandingSwaps = false;
+                            } else {
+                              this.thereAreOutstandingSwaps = true;
+                            }
+                          })
+                      });
+                    }
+                    
                   }
                 }
               ]

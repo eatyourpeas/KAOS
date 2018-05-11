@@ -76,14 +76,14 @@ exports.swapSaved = functions.firestore
     to: newValue.recipient_email,
     from: "noreply@mail.kaos.team",
     subject: "KAOS Swap Request",
-    html: newValue.requester_name + " has requested that you work <b>" + newValue.swap_to_date + "</b> in exchange for <b>" + newValue.swap_from_date + "</b>. Please log in to approve the request.<br> Kind regards,<br> KAOS Admin."
+    html: newValue.requester_name + " has requested that you work <b>" + newValue.swap_from_date + "</b> in exchange for <b>" + newValue.swap_to_date + "</b>. Please log in to approve the request.<br> Kind regards,<br> KAOS Admin."
   }
 
   var requesterBody = {
     to: newValue.requester_email,
     from: "noreply@mail.kaos.team",
     subject: "KAOS Swap Request",
-    html: "You have requested that " + newValue.recipient_name + " work <b>" + newValue.swap_to_date + "</b> in exchange for <b>" + newValue.swap_from_date + "</b>. " + newValue.recipient_name + " has been notified by email and you will receive confirmation once they have approved your request.<br> Kind regards,<br> KAOS Admin"
+    html: "You have requested that " + newValue.recipient_name + " work <b>" + newValue.swap_from_date + "</b> in exchange for <b>" + newValue.swap_to_date + "</b>. " + newValue.recipient_name + " has been notified by email and you will receive confirmation once they have approved your request.<br> Kind regards,<br> KAOS Admin"
   }
 
   mailgun.messages().send(requesterBody, (error, body)=>{
@@ -107,7 +107,7 @@ exports.swapConfirmed = functions.firestore
   const newValue = change.after.data();
   const oldValue = change.before.data();
 
-  if (!oldValue.consumed && newValue.consumed) {
+  if (newValue.valid && newValue.consumed) {
 
     var recipientBody = {
       to: newValue.recipient_email,
@@ -124,18 +124,48 @@ exports.swapConfirmed = functions.firestore
     }
 
     mailgun.messages().send(requesterBody, (error, body)=>{
-      log(body);
+
       if(error){
         console.log(error.message);
       }
     });
 
     mailgun.messages().send(recipientBody, (error, body)=>{
-      log(body);
+
       if(error){
         console.log(error.message);
       }
     });
 
+  }
+
+  if (!newValue.valid){
+    var recipientBody = {
+      to: newValue.recipient_email,
+      from: "noreply@mail.kaos.team",
+      subject: "KAOS Swap Request",
+      html: "You have declined to work <b>" + newValue.swap_to_date + "</b> in exchange for "+ newValue.requester_name + "'s <b>" + newValue.swap_from_date + "</b>. Existing rota arrangements stand.<br> Kind regards,<br> KAOS Admin."
+    }
+
+    var requesterBody = {
+      to: newValue.requester_email,
+      from: "noreply@mail.kaos.team",
+      subject: "KAOS Swap Request",
+      html: newValue.recipient_name + " has declined your request to work your <b>" + newValue.swap_to_date + "</b> in exchange for their <b>" + newValue.swap_from_date + "</b>. Existing rota arrangements stand. Please submit a new swap request.<br> Kind regards,<br> KAOS Admin"
+    }
+
+    mailgun.messages().send(requesterBody, (error, body)=>{
+
+      if(error){
+        console.log(error.message);
+      }
+    });
+
+    mailgun.messages().send(recipientBody, (error, body)=>{
+
+      if(error){
+        console.log(error.message);
+      }
+    });
   }
 });
