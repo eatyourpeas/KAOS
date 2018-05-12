@@ -107,16 +107,19 @@ exports.swapConfirmed = functions.firestore
   const newValue = change.after.data();
   const oldValue = change.before.data();
 
+  var recipientBody = {};
+  var requesterBody = {};
+
   if (newValue.valid && newValue.consumed) {
 
-    var recipientBody = {
+    recipientBody = {
       to: newValue.recipient_email,
       from: "noreply@mail.kaos.team",
       subject: "KAOS Swap Request",
       html: "You have agreed to work <b>" + newValue.swap_to_date + "</b> in exchange for "+ newValue.requester_name + "'s <b>" + newValue.swap_from_date + "</b>. The rota has been updated to reflect this.<br> Kind regards,<br> KAOS Admin."
     }
 
-    var requesterBody = {
+    requesterBody = {
       to: newValue.requester_email,
       from: "noreply@mail.kaos.team",
       subject: "KAOS Swap Request",
@@ -140,14 +143,14 @@ exports.swapConfirmed = functions.firestore
   }
 
   if (!newValue.valid){
-    var recipientBody = {
+    recipientBody = {
       to: newValue.recipient_email,
       from: "noreply@mail.kaos.team",
       subject: "KAOS Swap Request",
       html: "You have declined to work <b>" + newValue.swap_to_date + "</b> in exchange for "+ newValue.requester_name + "'s <b>" + newValue.swap_from_date + "</b>. Existing rota arrangements stand.<br> Kind regards,<br> KAOS Admin."
     }
 
-    var requesterBody = {
+    requesterBody = {
       to: newValue.requester_email,
       from: "noreply@mail.kaos.team",
       subject: "KAOS Swap Request",

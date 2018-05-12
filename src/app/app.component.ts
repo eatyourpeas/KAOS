@@ -5,7 +5,7 @@ import { Plugins } from '@capacitor/core';
 import { AuthData } from '../providers/auth/auth';
 import { UserProfileProvider } from '../providers/user-profile/user-profile';
 import { AngularFireAuth } from 'angularfire2/auth';
-const { Toast } = Plugins;
+//const { Toast } = Plugins;
 
 @Component({
   templateUrl: 'app.html'
@@ -72,11 +72,7 @@ export class MyApp {
 
 
   }
-  async show(){
-    await Toast.show({
-      text: 'Hello!'
-    });
-  }
+
 
   initializeApp() {
     this.platform.ready().then(() => {
@@ -141,7 +137,7 @@ export class MyApp {
   }
 
   ionViewDidLoad(){
-    this.show();
+    
   }
 
   openPage(page) {

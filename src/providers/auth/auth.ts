@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 
 import { AngularFireAuth } from 'angularfire2/auth';
+//import firebase from 'firebase'; //previouse 
 import * as firebase from 'firebase/app';
-import { Observable } from 'rxjs/Observable';
-import md5 from 'crypto-md5';
-import { AngularFirestore } from 'angularfire2/firestore'
+//import { Observable } from 'rxjs/Observable';
+//import md5 from 'crypto-md5';
+//import { AngularFirestore } from 'angularfire2/firestore'
 //import {  AngularFirestoreCollection } from 'angularfire2/firestore';
 
 export interface UserProfile { id: string, title: string, first_name: string, second_name: string, uid: string, role: string, secondary_role: string, service: string, bio: string, mobile: string, admin: boolean, avatar: string, first_time: boolean, token: [string] }
@@ -12,7 +13,7 @@ export interface UserProfile { id: string, title: string, first_name: string, se
 @Injectable()
 export class AuthData {
   user: firebase.User;
-  userProfile: Observable<UserProfile[]>
+//  userProfile: Observable<UserProfile[]>
   permitted : string[] = [
     "lizwatt@nhs.net",
     "jennifer.kalitsi@nhs.net",
@@ -36,7 +37,7 @@ export class AuthData {
     "barney.dunn@nhs.net"
   ];
 
-  constructor(private firebaseAuth: AngularFireAuth, public afs: AngularFirestore) {
+  constructor(private firebaseAuth: AngularFireAuth) {
     firebaseAuth.authState.subscribe(user=>{
       this.user = user;
     });
