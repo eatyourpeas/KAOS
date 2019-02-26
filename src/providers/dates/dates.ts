@@ -29,8 +29,20 @@ export class DatesProvider {
   }
 
   addDateForUser(rosterDate: RosterDate){
-    this.datesCollection = this.afs.collection('Dates');
-    return this.datesCollection.add(rosterDate);
+    this.datesCollection = this.afs.collection('Dates', ref => ref.where('date', '==', rosterDate.date));
+     return this.datesCollection.snapshotChanges().subscribe(datesReturned=>{
+      if(datesReturned.length > 0){ // this rosterdate has already been allocated: update
+        datesReturned.map(dateReturned=>{
+          const uid = dateReturned.payload.doc.id;
+          const the_rest = dateReturned.payload.doc.data();
+          const data = {uid, ...the_rest};
+          return data;
+        });
+        return this.afs.collection('Dates').doc(datesReturned[0].payload.doc.data()['uid']).update(rosterDate);
+      } else {
+        return this.afs.collection('Dates').add(rosterDate);
+      }
+    });
   }
 
   getUserForDate(date: Date){

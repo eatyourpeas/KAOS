@@ -88,7 +88,7 @@ export class MyApp {
       console.log("isavailable is called")
   		if (isAvailable) {
         console.log("I should be showing a toast")
-        this.alertCtrl.create({
+        let alert = this.alertCtrl.create({
           title: "KAOS Update",
           message: "There is a new version of the KAOS app. Click here to refresh",
           buttons: [
@@ -105,7 +105,8 @@ export class MyApp {
               }
             }
           ]
-        })
+        });
+        alert.present();
   		}
   	});
 
@@ -137,7 +138,7 @@ export class MyApp {
   }
 
   ionViewDidLoad(){
-    
+
   }
 
   openPage(page) {

@@ -133,7 +133,7 @@ export class RosterPage {
         this.userProfileProvider.getProfileForUser(res[0].user).subscribe(result => {
           if(result[0]){
             this.KAOSClinicianOnCall = result[0].title + " " + result[0].first_name + " " + result[0].second_name;
-            this.KAOSClinicianOnCallUID = result[0].uid;
+            this.KAOSClinicianOnCallUID = result[0].id;
             this.KAOSClinicianOnCallEmail = result[0].email;
             if(this.KAOSClinicianOnCallUID != this.auth.getLoggedInUserId()){
                 this.thereIsAKAOSClinicianAvailableToday = true;
@@ -351,7 +351,7 @@ export class RosterPage {
                           })
                       });
                     }
-                    
+
                   }
                 }
               ]

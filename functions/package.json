@@ -2,23 +2,32 @@
   "name": "functions",
   "description": "Cloud Functions for Firebase",
   "scripts": {
-    "lint": "eslint .",
-    "serve": "firebase serve --only functions",
-    "shell": "firebase experimental:functions:shell",
+    "lint": "tslint --project tsconfig.json",
+    "build": "tsc",
+    "serve": "npm run build && firebase serve --only functions",
+    "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log"
   },
   "dependencies": {
     "crypto-md5": "^1.0.0",
-    "firebase-admin": "~5.12.0",
-    "firebase-functions": "^1.0.0",
-    "mailgun-js": "^0.16.0",
-    "nodemailer": "^4.6.4"
+    "firebase-admin": "^7.0.0",
+    "firebase-functions": "^2.2.0",
+    "firebase-tools": "^6.3.1",
+    "mailgun-js": "^0.22.0",
+    "moment": "^2.24.0",
+    "nodemailer": "^4.6.7",
+    "tslint": "^5.12.1",
+    "typescript": "^3.3.3"
   },
+  "engines": {
+    "node": "8"
+  },
+  "main": "lib/index.js",
   "devDependencies": {
-    "eslint": "^4.12.0",
-    "eslint-plugin-promise": "^3.6.0"
+    "tslint": "^5.12.1",
+    "typescript": "^3.3.3"
   },
   "private": true
 }

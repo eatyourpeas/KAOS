@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, IonicPage } from 'ionic-angular';
+import { AuthData } from '../../providers/auth/auth';
 
 
 @IonicPage()
@@ -9,7 +10,7 @@ import { NavController, IonicPage } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public auth: AuthData) {
 
   }
 

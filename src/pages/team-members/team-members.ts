@@ -21,7 +21,7 @@ export class TeamMembersPage {
     public navParams: NavParams,
     public userProfileProvider: UserProfileProvider,
     private auth: AuthData){
-    
+
   }
 
 
