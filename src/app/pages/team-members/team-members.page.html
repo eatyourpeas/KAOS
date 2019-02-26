@@ -1,0 +1,46 @@
+<ion-toolbar color="primary" text-center>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title text-center>Team Members</ion-title>
+</ion-toolbar>
+
+<ion-content padding color="secondary">
+  <ion-list *ngFor="let profile of profiles" lines="none">
+    <ion-item-sliding>
+      <ion-item>
+        <ion-avatar slot="start">
+          <ion-img src={{profile.avatar}}></ion-img>
+        </ion-avatar>
+        <ion-label>
+            <ion-text>
+              <h5>
+                {{profile.title}} {{profile.first_name}} {{profile.second_name}}
+              </h5>
+            </ion-text>
+            <ion-text color="secondary">
+              <p text-wrap>{{profile.role}}</p>
+            </ion-text>
+        </ion-label>
+      </ion-item>
+      <ion-item-options side="start" *ngIf="authService.user | async">
+        <ion-item-option color="info" slot="icon-only" (click)="clickedEmail(profile.email)">
+          <ion-icon size="large" name="mail"></ion-icon>
+        </ion-item-option>
+        <ion-item-option color="tertiary" slot="icon-only" (click)="clickedMobile(profile.mobile)" *ngIf="!profile.noMobile">
+          <ion-icon size="large" name="phone-portrait"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+      <ion-item-options side="end" *ngIf="my_profile?.admin" (click)="deleteAccount(profile.uid)">
+        <ion-item-option color="danger" slot="icon-only">
+          <ion-icon size="large" name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="my_profile?.admin">
+    <ion-fab-button color="tertiary" (click)="createNewKAOSMember()">
+      <ion-icon name="person-add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

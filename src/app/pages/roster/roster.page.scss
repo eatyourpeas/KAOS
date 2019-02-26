@@ -1,0 +1,29 @@
+ion-select{
+  min-width: 100%;
+}
+
+.redclass{
+  color: var(--ion-color-light);
+}
+
+ion-item-sliding{
+  margin-top: 1px;
+}
+
+ion-list{
+  background-color: transparent;
+}
+
+ion-spinner {
+    width: 100px;
+    height: 100px;
+}
+
+.spinner-container{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

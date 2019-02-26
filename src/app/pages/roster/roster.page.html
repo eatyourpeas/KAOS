@@ -1,0 +1,48 @@
+<ion-toolbar color="primary" text-center>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Roster</ion-title>
+</ion-toolbar>
+
+<ion-content padding color="secondary">
+  <ion-item color="light">
+    <ion-select [(ngModel)]="this_month" (ionChange)="selectMonth()">
+      <ion-select-option *ngFor="let month of select_years" value={{month.format}}>{{month.format}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <div *ngIf="all_dates?.length > 0; else nodata">
+    <ion-list lines="none">
+      <ion-item-sliding #slidingList *ngFor="let date of all_dates">
+        <ion-item [id]="date.format" color={{date.today}}>
+          <ion-text>
+            <h6>
+              {{date.format}}
+            </h6>
+            <p>
+              {{date.user_name}}
+            </p>
+          </ion-text>
+        </ion-item>
+        <ion-item-options side="start">
+          <ion-item-option color="light" (click)="swap(date)">
+            <ion-icon name="swap" size="large" color="dark"></ion-icon>
+          </ion-item-option>
+          <ion-item-option color="light" (click)="allocate(date)">
+            <ion-icon name="person-add" size="large" color="dark"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </div>
+  <ng-template  #nodata>
+    <div class="spinner-container">
+      <ion-spinner name="crescent"></ion-spinner>
+    </div>
+  </ng-template>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" color="tertiary">
+    <ion-fab-button href="/roster/{{user_id}}">
+      <ion-icon name="person" ></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

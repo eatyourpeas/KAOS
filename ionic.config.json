@@ -1,8 +1,5 @@
 {
   "name": "kaos",
-  "integrations": {
-    "cordova": {}
-  },
-  "type": "ionic-angular",
-  "id": "59927ca2"
+  "integrations": {},
+  "type": "angular"
 }

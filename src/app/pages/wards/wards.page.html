@@ -1,0 +1,16 @@
+<ion-toolbar color="primary" text-center>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Wards</ion-title>
+</ion-toolbar>
+
+<ion-content padding color="secondary">
+  <ion-list >
+    <ion-item *ngFor="let ward of ward_data" href="resources/wards/{{ward.ward_id}}" detail lines="none">
+      <ion-text>
+        {{ward.ward_name}}
+      </ion-text>
+    </ion-item>
+  </ion-list>
+</ion-content>

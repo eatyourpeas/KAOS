@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/roster"></ion-back-button>
+    </ion-buttons>
+    <ion-title text-center>My Rostered Dates</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding color="secondary">
+  <div *ngIf="selected_year; else nodata">
+    <ion-item color="light">
+      <ion-select [(ngModel)]="selected_year" (ionChange)="selectYear($event)">
+        <ion-select-option *ngFor="let year of select_years" [value]="year">{{year}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-list lines="none">
+      <ion-item *ngFor="let user_date of user_dates" color="tertiary">
+        <ion-text>
+          <h1>{{user_date.format}}</h1>
+        </ion-text>
+      </ion-item>
+    </ion-list>
+  </div>
+  <ng-template  #nodata>
+    <div class="spinner-container">
+      <ion-spinner name="crescent"></ion-spinner>
+    </div>
+  </ng-template>
+</ion-content>

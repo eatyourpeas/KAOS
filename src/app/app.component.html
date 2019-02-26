@@ -1,0 +1,61 @@
+<ion-app>
+  <ion-split-pane>
+    <ion-menu>
+      <ion-header>
+        <ion-toolbar color="primary">
+          <ion-title>Menu</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content color="light">
+          <div *ngIf="authService.user | async">
+            <div *ngFor="let user_profile of user_profiles">
+              <ion-item color="light" detail="true" href="profile/{{user_profile.uid}}">
+                <ion-avatar slot="start">
+                  <ion-img src={{user_profile.avatar}}></ion-img>
+                </ion-avatar>
+                <ion-label>
+                  <ion-text>
+                    <h5>
+                        <strong>{{user_profile.title}} {{user_profile.first_name}} {{user_profile.second_name}}</strong>
+                    </h5>
+                  </ion-text>
+                  <ion-text>
+                    <p>{{user_profile.role}}</p>
+                  </ion-text>
+                  <ion-text color="secondary">
+                    <p>{{user_profile.email}}</p>
+                  </ion-text>
+                </ion-label>
+              </ion-item>
+            </div>
+          </div>
+        <ion-list color="light">
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]" lines="none" color="light">
+              <ion-icon slot="start" [name]="p.icon" color="dark"></ion-icon>
+              <ion-label>
+                {{p.title}}
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+      </ion-content>
+      <ion-footer>
+        <div *ngIf="authService.user | async; else context">
+          <ion-list>
+            <ion-menu-toggle auto-hide="false">
+              <ion-item menuClose href="/walk-through" class="menupage" color="light" detail="true">KAOS Clinician Info</ion-item>
+              <ion-item menuClose href="/roster" class="menupage" color="secondary">My Roster</ion-item>
+              <ion-item menuClose href="/reset-password" class="menupage" color="light" detail="true">Reset Password</ion-item>
+              <ion-item menuClose (click)="signOut()" class="signout" color="dark">Sign Out</ion-item>
+            </ion-menu-toggle>
+          </ion-list>
+        </div>
+        <ng-template #context>
+          <ion-item menuClose href="/login" color="dark">Clinician Sign In</ion-item>
+        </ng-template>
+      </ion-footer>
+    </ion-menu>
+    <ion-router-outlet main></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

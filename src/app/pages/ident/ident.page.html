@@ -1,0 +1,82 @@
+<ion-toolbar color="primary" >
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title text-center>Profile</ion-title>
+</ion-toolbar>
+
+<ion-content padding color="secondary">
+  <form [formGroup]="profile_form" *ngIf="user_profile; else loading" (ngSubmit)="saveProfile()">
+    <ion-card *ngIf="user_profile; else spinner">
+      <ion-card-header color="light" (click)="updateImg(user_profile[0].avatar)">
+        <ion-avatar *ngIf="user_profile?.length>0">
+          <ion-img src={{user_profile[0].avatar}}></ion-img>
+        </ion-avatar>
+      </ion-card-header>
+      <ion-card-content *ngIf="user_profile?.length>0">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label for="title" position="floating" color="secondary">Title</ion-label>
+                <ion-select formControlName="title" id="title">
+                  <ion-select-option *ngFor="let my_title of titles">{{my_title}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label for="first_name" position="floating" color="secondary">First Name</ion-label>
+                <ion-input formControlName="first_name" id="first_name"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col>
+              <ion-item>
+                <ion-label for="second_name" position="floating" color="secondary">Second Name</ion-label>
+                <ion-input formControlName="second_name" id="second_name"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-item>
+              <ion-label for="role" position="floating" color="secondary">Role</ion-label>
+              <ion-input formControlName="role" id="role"></ion-input>
+            </ion-item>
+          </ion-row>
+          <ion-row>
+            <ion-item>
+              <ion-label for="email" position="floating" color="secondary">Email</ion-label>
+              <ion-input formControlName="email" id="email" inputmode="email"></ion-input>
+            </ion-item>
+          </ion-row>
+          <ion-row>
+            <ion-item>
+              <ion-label for="mobile" position="floating" color="secondary">Mobile</ion-label>
+              <ion-input formControlName="mobile" id="mobile" inputmode="tel"></ion-input>
+            </ion-item>
+          </ion-row>
+          <ion-row>
+            <ion-item>
+              <ion-label for="secondary_role" position="floating" color="secondary">KAOS Role</ion-label>
+              <ion-input formControlName="secondary_role" id="secondary_role"></ion-input>
+            </ion-item>
+          </ion-row>
+          <ion-row>
+            <ion-item>
+              <ion-label for="bio" position="floating" color="secondary">Bio</ion-label>
+              <ion-textarea rows="5" formControlName="bio" id="bio"></ion-textarea>
+            </ion-item>
+          </ion-row>
+          <ion-row>
+            <ion-button type="submit" class="centred" color="secondary" fill="outline" expand="block">Save Profile</ion-button>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </form>
+  <ng-template #spinner>
+    <ion-spinner name="crescent"></ion-spinner>
+  </ng-template>
+</ion-content>

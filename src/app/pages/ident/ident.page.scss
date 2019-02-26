@@ -1,0 +1,32 @@
+ion-avatar{
+  min-width: 150px;
+  min-height: 150px;
+  border-style: solid;
+  border-width: thick;
+  border-color: var(--ion-color-secondary);
+  margin: auto;
+  display: block;
+  align-items: center;
+}
+
+ion-item{
+  min-width: 100%;
+}
+
+ion-card{
+  background-color: white;
+}
+
+// ion-textarea{
+//   min-height: 100%;
+// }
+
+.wide{
+  min-height: 200px;
+}
+
+.centred{
+  display: block;
+  margin: 10px auto;
+  text-align: center;
+}

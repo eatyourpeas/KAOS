@@ -1,0 +1,50 @@
+<ion-toolbar color="primary" text-center>
+      <ion-buttons slot="start">
+        <ion-menu-button color="tertiary"></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Log In</ion-title>
+</ion-toolbar>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <img class="kaos-icon" src="assets/imgs/kaosredthread.png"/>
+    </ion-row>
+    <ion-row>
+      <ion-text>
+        <h4>
+          <i>
+            King's Adolescent Outreach Service
+          </i>
+        </h4>
+        <h6>
+          Supporting young people across King's College Hospital
+        </h6>
+      </ion-text>
+    </ion-row>
+    <ion-row>
+      <form [formGroup]="loginForm" (submit)="loginUser()" novalidate>
+        <ion-item>
+          <ion-label position="stacked">Email</ion-label>
+          <ion-input formControlName="email" type="email" placeholder="Your email address"
+            [class.invalid]="!loginForm.controls.email.valid && blur"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Password</ion-label>
+          <ion-input formControlName="password" type="password" placeholder="Your password"
+            [class.invalid]="!loginForm.controls.password.valid && blur"></ion-input>
+        </ion-item>
+        <ion-button expand="block" type="submit" [disabled]="!loginForm.valid">
+          Login
+        </ion-button>
+      </form>
+          <small>Please refer to your welcome email for details on signing up.</small>
+        <div class="centred">
+          <ion-button expand="outline" clear href="/reset-password">
+            I forgot my password
+          </ion-button>
+        </div>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

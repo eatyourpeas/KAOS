@@ -1,0 +1,34 @@
+ion-slide {
+  align-items: flex-start;
+}
+
+ion-item {
+  margin-bottom: 5px;
+  font-size: 1.2em;
+  width:100%;
+          }
+
+flash-card {
+  color: #fff;
+
+  img {
+      width: 70%;
+      height: auto;
+  }
+}
+
+ion-row{
+  display: block;
+  margin: 0 auto;
+}
+
+
+.start-slide {
+    justify-content: center;
+    align-items: center;
+
+    ion-button {
+        font-size: 1.3em;
+        font-weight: bold;
+    }
+}

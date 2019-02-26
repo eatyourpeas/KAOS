@@ -1,0 +1,69 @@
+<ion-toolbar color="primary" text-center>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Quiz</ion-title>
+</ion-toolbar>
+
+<ion-content padding color="light">
+
+      <ion-slides #slides>
+
+              <ion-slide class="start-slide">
+                <ion-grid>
+                  <ion-row>
+                      <img class="kaos-icon" src="assets/imgs/kaosredthread.png"/>
+                  </ion-row>
+                  <ion-row>
+                    <ion-button expand="outline" color="primary" (click)="nextSlide()">Start!</ion-button>
+                  </ion-row>
+                </ion-grid>
+              </ion-slide>
+
+              <ion-slide *ngFor="let question of questions; let i = index;">
+                  <ion-grid>
+                    <ion-row>
+                      <ion-text color="secondary">
+                        <h3>Question {{i+1}}</h3>
+                      </ion-text>
+                    </ion-row>
+                    <ion-row>
+                      <flash-card [isFlipped]="question.flashCardFlipped">
+                        <div class="flash-card-front"><h1>{{question.flashCardFront}}</h1></div>
+                        <div class="flash-card-back"><h1>{{question.flashCardBack}}</h1></div>
+                      </flash-card>
+                    </ion-row>
+                    <ion-row>
+                      <ion-list lines="none" radio-group>
+                        <ion-radio-group>
+                            <ion-item *ngFor="let answer of question.answers; let i = index;" color="light">
+                                <ion-label text-wrap>{{i+1}}. {{answer.answer}}</ion-label>
+                                <ion-radio (click)="selectAnswer(answer, question)" [checked]="answer.selected" [value]="answer.answer" [disabled]="hasAnswered"></ion-radio>
+                            </ion-item>
+                        </ion-radio-group>
+                      </ion-list>
+                    </ion-row>
+                  </ion-grid>
+              </ion-slide>
+
+              <ion-slide>
+                <ion-grid>
+                  <ion-row>
+                    <ion-text color="secondary">
+                      <h2>Final Score: {{score}}</h2>
+                    </ion-text>
+                  </ion-row>
+                  <ion-row>
+                    <ion-button (click)="restartQuiz()" expand="outline" color="primary">Start Again</ion-button>
+                  </ion-row>
+                </ion-grid>
+              </ion-slide>
+
+      </ion-slides>
+
+      <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="isAdmin">
+        <ion-fab-button (click)="createQuestion()" color="secondary">
+          <ion-icon name="create"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+</ion-content>

@@ -1,0 +1,54 @@
+<ion-toolbar color="primary" text-center>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/resources/wards"></ion-back-button>
+      </ion-buttons>
+      <ion-title text-center>{{ward_name}}</ion-title>
+</ion-toolbar>
+
+<ion-content padding color="light">
+  <ion-card color="secondary">
+    <ion-text>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-4>Location</ion-col>
+          <ion-col col-8>{{location}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-4>Visiting Times</ion-col>
+          <ion-col col-8>{{visiting_times}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-4>Maximum Visitors</ion-col>
+          <ion-col col-8>{{max_visitors}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-4>Protected Meal Time</ion-col>
+          <ion-col col-8>{{protected_mealtime}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-4>Ward Manager</ion-col>
+          <ion-col col-8>{{ward_manager}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-4>Telephone</ion-col>
+          <ion-col col-8>{{telephone}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-4>Facilities</ion-col>
+          <ion-col col-8>
+            <span *ngFor="let f of facilities">
+                <ion-chip color="tertiary" (click)="pop(f)"><ion-icon name={{f}}></ion-icon></ion-chip>
+            </span>
+          </ion-col>
+        </ion-row>
+
+          <ion-row>
+            Background
+          </ion-row>
+          <ion-row>
+            {{history}}
+          </ion-row>
+      </ion-grid>
+    </ion-text>
+  </ion-card>
+</ion-content>

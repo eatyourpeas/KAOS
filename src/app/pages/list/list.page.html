@@ -1,0 +1,24 @@
+<ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title text-center>Menu</ion-title>
+</ion-toolbar>
+
+<ion-content padding color="secondary">
+  <ion-list>
+    <ion-item *ngFor="let item of items" routerLink="/resources/{{item.page_name}}" detail="true" lines="none">
+        <ion-icon slot="start" size="large" [name]="item.icon" color="dark"></ion-icon>
+        <ion-label>
+          <ion-text>
+              {{item.title}}
+          </ion-text>
+          <ion-text>
+            <p>
+              <small>{{item.note}}</small>
+            </p>
+          </ion-text>
+        </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
