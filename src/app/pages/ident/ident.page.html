@@ -6,7 +6,7 @@
 </ion-toolbar>
 
 <ion-content padding color="secondary">
-  <form [formGroup]="profile_form" *ngIf="user_profile; else loading" (ngSubmit)="saveProfile()">
+  <form [formGroup]="profile_form" *ngIf="user_profile; else spinner" (ngSubmit)="saveProfile()">
     <ion-card *ngIf="user_profile; else spinner">
       <ion-card-header color="light" (click)="updateImg(user_profile[0].avatar)">
         <ion-avatar *ngIf="user_profile?.length>0">

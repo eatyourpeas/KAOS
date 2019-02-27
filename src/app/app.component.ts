@@ -50,7 +50,7 @@ export class AppComponent {
     // private statusBar: StatusBar,
     private toastController: ToastController,
     private swUpdate: SwUpdate,
-    private authService: AuthService,
+    public authService: AuthService,
     private router: Router,
     private userProfile: UserprofileService
   ) {
@@ -76,7 +76,7 @@ export class AppComponent {
       if(this.swUpdate.isEnabled){
         this.swUpdate.available.subscribe(()=>{
           this.toastController.create({
-            message: "New RotaNinja version available. Reloading...",
+            message: "New KAOS version available. Reloading...",
             duration: 2000
           })
           .then(toast=>{
