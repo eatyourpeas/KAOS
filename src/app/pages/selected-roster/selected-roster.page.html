@@ -8,6 +8,9 @@
 </ion-header>
 
 <ion-content padding color="secondary">
+  <div class="spinner">
+    <ion-spinner name="crescent" *ngIf='showSpinner'></ion-spinner>
+  </div>
   <div *ngIf="selected_year; else nodata">
     <ion-item color="light">
       <ion-select [(ngModel)]="selected_year" (ionChange)="selectYear($event)">
@@ -22,9 +25,9 @@
       </ion-item>
     </ion-list>
   </div>
-  <ng-template  #nodata>
-    <div class="spinner-container">
-      <ion-spinner name="crescent"></ion-spinner>
-    </div>
+  <ng-template #nodata>
+    <ion-item color='secondary' text-center lines='none'>
+      <ion-label>You have no allocated shifts.</ion-label>
+    </ion-item>
   </ng-template>
 </ion-content>

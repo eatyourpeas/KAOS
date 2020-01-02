@@ -41,8 +41,8 @@ export class AppComponent {
   ];
 
   deferredPrompt;
-  user_profiles
-  user_person
+  user_profiles;
+  user_person;
 
   constructor(
     private platform: Platform,
@@ -55,34 +55,34 @@ export class AppComponent {
     private userProfile: UserprofileService
   ) {
     this.initializeApp();
-    authService.auth.authState.subscribe(user=>{
-      if(user){
+    authService.auth.authState.subscribe(user => {
+      if (user) {
         this.user_person = user;
-        userProfile.getUserProfile(user.uid).subscribe(profiles=>{
-          this.user_profiles = profiles.map(profile=>{
-            let uid = profile.payload.doc.id;
-            let data = profile.payload.doc.data();
+        userProfile.getUserProfile(user.uid).subscribe(profiles => {
+          this.user_profiles = profiles.map(profile => {
+            const uid = profile.payload.doc.id;
+            const data = profile.payload.doc.data();
             return {uid, ...data};
           });
-        })
+        });
       }
-    })
+    });
 
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
 
-      if(this.swUpdate.isEnabled){
-        this.swUpdate.available.subscribe(()=>{
+      if (this.swUpdate.isEnabled) {
+        this.swUpdate.available.subscribe(() => {
           this.toastController.create({
-            message: "New KAOS version available. Reloading...",
+            message: 'New KAOS version available. Reloading...',
             duration: 2000
           })
-          .then(toast=>{
-            toast.present().then(()=>{
+          .then(toast => {
+            toast.present().then(() => {
               window.location.reload();
-            })
+            });
           });
         });
       }
@@ -97,12 +97,12 @@ export class AppComponent {
         this.showInstallBanner();
       });
 
-      if(!window.navigator.onLine){
+      if (!window.navigator.onLine) {
         this.toastController.create({
-          message: "You are offline...",
+          message: 'You are offline...',
           duration: 2000
         })
-        .then(toast=>{
+        .then(toast => {
           toast.present();
         });
       }
@@ -128,9 +128,9 @@ export class AppComponent {
     }
   }
 
-  signOut(){
-    this.authService.signOut().then(res=>{
-      if(res){
+  signOut() {
+    this.authService.signOut().then(res => {
+      if (res) {
         this.router.navigate(['home']);
       }
     });

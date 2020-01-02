@@ -28,23 +28,23 @@ export class ResetPasswordPage implements OnInit {
   ngOnInit() {
   }
 
-  resetPassword(){
-    let email = this.passwordresetForm['email'].value;
-    this.authService.resetPassword(email).then(()=>{
+  resetPassword() {
+    const email = this.passwordresetForm.controls.email.value;
+    this.authService.resetPassword(email).then(() => {
       this.toastController.create({
         message: "Please check your email for a reset link.",
         duration: 3000
-      }).then(toast=>{
+      }).then(toast => {
         toast.present();
       });
-    }).catch(error=>{
+    }).catch(error => {
       this.toastController.create({
         message: error.message,
         duration: 3000
-      }).then(toast=>{
+      }).then(toast => {
         toast.present();
       });
-    })
+    });
   }
 
 }

@@ -14,15 +14,29 @@
   <div *ngIf="all_dates?.length > 0; else nodata">
     <ion-list lines="none">
       <ion-item-sliding #slidingList *ngFor="let date of all_dates">
-        <ion-item [id]="date.format" color={{date.today}}>
-          <ion-text>
-            <h6>
-              {{date.format}}
-            </h6>
+        <ion-item [id]="date.format" color={{date.today}} *ngIf='date.format'>
+          <ion-grid>
+            <ion-row>
+              <ion-label>
+                <strong>{{date.user_name}}</strong>
+              </ion-label>
+            </ion-row>
+            <ion-row>
+              <ion-label>
+                {{date.format}}
+              </ion-label>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item [id]="date.format" color={{date.today}} *ngIf='date.formatFromDate'>
+          <ion-label slot='start'>
+              <strong>{{date.user_name}}</strong>
+          </ion-label>
+          <ion-label slot='end'>
             <p>
-              {{date.user_name}}
+              {{date.formatFromDate}}
             </p>
-          </ion-text>
+          </ion-label>
         </ion-item>
         <ion-item-options side="start">
           <ion-item-option color="light" (click)="swap(date)">
@@ -35,14 +49,20 @@
       </ion-item-sliding>
     </ion-list>
   </div>
-  <ng-template  #nodata>
+  <div class="spinner" *ngIf='showSpinner'>
     <div class="spinner-container">
       <ion-spinner name="crescent"></ion-spinner>
     </div>
+  </div>
+  <ng-template  #nodata>
+    <ion-item text-center color='secondary' lines='none'>
+      <ion-label><h2>There are no dates allocated yet.</h2></ion-label>
+    </ion-item>
   </ng-template>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" color="tertiary">
-    <ion-fab-button href="/roster/{{user_id}}">
-      <ion-icon name="person" ></ion-icon>
-    </ion-fab-button>
+      <ion-fab-button href="/roster/{{user_id}}">
+        <ion-icon name="person" ></ion-icon>
+      </ion-fab-button>
   </ion-fab>
+  <!-- <ion-item menuClose (click)='wholeYear()'>Whole Year</ion-item> -->
 </ion-content>
