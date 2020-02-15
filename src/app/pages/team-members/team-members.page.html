@@ -6,9 +6,9 @@
 </ion-toolbar>
 
 <ion-content padding color="secondary">
-  <ion-list *ngFor="let profile of profiles" lines="none">
+  <ion-list *ngFor="let profile of profiles" lines="none" #slidingList>
     <ion-item-sliding>
-      <ion-item>
+      <ion-item *ngIf='!profile.retired'>
         <ion-avatar slot="start">
           <ion-img src={{profile.avatar}}></ion-img>
         </ion-avatar>
@@ -23,6 +23,22 @@
             </ion-text>
         </ion-label>
       </ion-item>
+      <ion-item *ngIf='profile.retired && my_profile?.admin' color='light'>
+        <ion-avatar slot="start">
+          <ion-img src={{profile.avatar}}></ion-img>
+        </ion-avatar>
+        <ion-label>
+            <ion-text>
+              <h5>
+                {{profile.title}} {{profile.first_name}} {{profile.second_name}}
+              </h5>
+            </ion-text>
+            <ion-text>
+              <p text-wrap>{{profile.role}}</p>
+              <p text-wrap><strong>INACTIVE</strong></p>
+            </ion-text>
+        </ion-label>
+      </ion-item>
       <ion-item-options side="start" *ngIf="authService.user | async">
         <ion-item-option color="info" slot="icon-only" (click)="clickedEmail(profile.email)">
           <ion-icon size="large" name="mail"></ion-icon>
@@ -31,9 +47,15 @@
           <ion-icon size="large" name="phone-portrait"></ion-icon>
         </ion-item-option>
       </ion-item-options>
-      <ion-item-options side="end" *ngIf="my_profile?.admin" (click)="deleteAccount(profile.uid)">
-        <ion-item-option color="danger" slot="icon-only">
+      <ion-item-options side="end" *ngIf="my_profile?.admin">
+        <ion-item-option color="danger" slot="icon-only" (click)="deleteAccount(profile.uid)">
           <ion-icon size="large" name="trash"></ion-icon>
+        </ion-item-option>
+        <ion-item-option color="danger" slot="icon-only" (click)="retireAccount(profile.uid)">
+          <ion-icon size="large" name="remove-circle"></ion-icon>
+        </ion-item-option>
+        <ion-item-option color="info" slot="icon-only" (click)="activateAccount(profile.uid)">
+          <ion-icon size="large" name="add-circle"></ion-icon>
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>

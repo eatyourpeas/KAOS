@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserprofileService } from '../../services/userprofile.service';
 import { AuthService } from '../../services/auth.service';
-import { AlertController, ToastController, IonItemSliding } from '@ionic/angular';
+import { AlertController, ToastController, IonList } from '@ionic/angular';
 
 @Component({
   selector: 'app-team-members',
@@ -11,7 +11,7 @@ import { AlertController, ToastController, IonItemSliding } from '@ionic/angular
 })
 export class TeamMembersPage implements OnInit {
 
-  @ViewChild(IonItemSliding) slidingItem: IonItemSliding;
+  @ViewChild('slidingList') slidingList: IonList;
   profiles;
   my_profile;
 
@@ -24,31 +24,31 @@ export class TeamMembersPage implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    this.authService.user.subscribe(user=>{
-        this.userProfileService.allUsers().subscribe(snap=>{
-          this.profiles = snap.map(userProfile=>{
-            let uid = userProfile.payload.doc.id;
-            let data = userProfile.payload.doc.data();
-            let last_name: string = userProfile.payload.doc.data()["second_name"];
+    this.authService.user.subscribe(user => {
+        this.userProfileService.allActiveUsers().subscribe(snap => {
+          this.profiles = snap.map(userProfile => {
+            const uid = userProfile.payload.doc.id;
+            const data: any = userProfile.payload.doc.data();
+            const last_name: string = userProfile.payload.doc.data()['second_name'];
             let noEmail = true;
             let noMobile = true;
-            if(userProfile.payload.doc.data()["email"].length > 0){
+            if (userProfile.payload.doc.data()['email'].length > 0) {
               noEmail = false;
             }
-            if(userProfile.payload.doc.data()["mobile"].length > 0){
+            if (userProfile.payload.doc.data()['mobile'].length > 0) {
               noMobile = false;
             }
-            if(user){
-              if(uid == user.uid){
+            if (user) {
+              if (uid == user.uid) {
                 this.my_profile = {uid, last_name, noMobile, noEmail, ...data};
               }
             }
             return {uid, last_name, noMobile, noEmail, ...data};
-          }).sort((a,b)=>{
+          }).sort((a, b) => {
             return a.last_name < b.last_name ? -1 : 1;
           });
 
-        }); //end subscribe
+        }); // end subscribe
 
         // .then(profiles=>{
         //   this.profiles = profiles.map(profile=>{
@@ -69,38 +69,38 @@ export class TeamMembersPage implements OnInit {
         //   });
         // });
 
-    })
+    });
 
   }
 
-  clickedMobile(mobile){
-    this.slidingItem.closeOpened();
+  clickedMobile(mobile) {
+    this.slidingList.closeSlidingItems();
     this.alertController.create({
-      message: "<a href="+mobile+" ' style='color: black; text-decoration: none;'>"+mobile+"</a>",
-      buttons:[{
-        text: "Cancel"
+      message: '<a href='+ mobile +' \' style=\'color: black; text-decoration: none;\'>'+ mobile +'</a>',
+      buttons: [{
+        text: 'Cancel'
       }]
-    }).then(alert=>{
+    }).then(alert => {
       alert.present();
-    })
+    });
   }
 
-  clickedEmail(email){
-    this.slidingItem.closeOpened();
+  clickedEmail(email) {
+    this.slidingList.closeSlidingItems();
     this.alertController.create({
-      message: "<a href='mailto:"+email+"' style='color: black; text-decoration: none;'>"+email+"</a>",
-      buttons:[{
-        text: "Cancel"
+      message: '<a href=\'mailto:'+ email +'\' style=\'color: black; text-decoration: none;\'>'+ email +'</a>',
+      buttons: [{
+        text: 'Cancel'
       }]
-    }).then(alert=>{
+    }).then(alert => {
       alert.present();
-    })
+    });
   }
 
-  createNewKAOSMember(){
+  createNewKAOSMember() {
     this.alertController.create({
-      header: "KAOS",
-      subHeader: "New Member",
+      header: 'KAOS',
+      subHeader: 'New Member',
       inputs: [{
         name: 'email',
         type: 'text',
@@ -126,43 +126,78 @@ export class TeamMembersPage implements OnInit {
         type: 'text',
         placeholder: 'KAOS role'
       }],
-      buttons:[{
+      buttons: [{
         text: 'OK',
-        handler: (data)=>{
-          //this.generateNewAccount(data);
-          data.password = "password";
+        handler: (data) => {
+          // this.generateNewAccount(data);
+          data.password = 'password';
           this.generateNewAccount(data);
         }
       }, 'Cancel']
-    }).then(alert=>{
+    }).then(alert => {
       alert.present();
-    })
+    });
   }
 
-  deleteAccount(profile_id){
-    this.userProfileService.deleteProfile(profile_id).then(()=>{
-      //the account will be removed in the cloud
+  deleteAccount(profile_id) {
+    this.slidingList.closeSlidingItems();
+    this.userProfileService.deleteProfile(profile_id).then(() => {
+      // the account will be removed in the cloud
       this.toastController.create({
-        message: "KAOS Account Deleted!",
+        message: 'KAOS Account Deleted!',
         duration: 1000
-      }).then(toast=>{
+      }).then(toast => {
         toast.present();
-      })
-    })
+      });
+    });
   }
 
-  generateNewAccount(data){
-
-    this.userProfileService.createNewUser(data).then(user=>{
+  retireAccount(profile_id) {
+    this.slidingList.closeSlidingItems();
+    this.userProfileService.retireUser(profile_id)
+    .then(() => {
       this.toastController.create({
-        message: "Account created for " + data.first_name + " " + data.second_name,
+        message: 'Account retired',
         duration: 1000
-      }).then(toast=>{toast.present();});
-    }).catch(error=>{
+      }).then(toast => {toast.present(); });
+    })
+    .catch(error => {
+      this.toastController.create({
+        message: error.message,
+        duration: 1000
+      }).then(toast => {toast.present(); });
+    });
+  }
+
+  activateAccount(profile_id) {
+    this.slidingList.closeSlidingItems();
+    this.userProfileService.activateUser(profile_id)
+    .then(() => {
+      this.toastController.create({
+        message: 'Account activated!',
+        duration: 1000
+      }).then(toast => {toast.present(); });
+    })
+    .catch(error => {
+      this.toastController.create({
+        message: error.message,
+        duration: 1000
+      }).then(toast => {toast.present(); });
+    });
+  }
+
+  generateNewAccount(data) {
+    this.slidingList.closeSlidingItems();
+    this.userProfileService.createNewUser(data).then(user => {
+      this.toastController.create({
+        message: 'Account created for ' + data.first_name + ' ' + data.second_name,
+        duration: 1000
+      }).then(toast => {toast.present(); });
+    }).catch(error => {
       this.toastController.create({
         message: error.message,
         duration: 3000
-      }).then(toast=>{
+      }).then(toast => {
         toast.present();
       });
     });

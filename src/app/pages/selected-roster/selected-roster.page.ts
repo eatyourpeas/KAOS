@@ -28,7 +28,10 @@ export class SelectedRosterPage implements OnInit {
           const my_dates = myDates.map(date => {
             const uid = date.payload.doc.id;
             const day = date.payload.doc.data()['date'].toDate();
-            const format = date.payload.doc.data()['format'];
+            let format = date.payload.doc.data()['format'];
+            if (format == null) {
+              format = moment(day).format('Do ddd MMM YYYY');
+            }
             return {uid, day, format};
           }).sort((a, b) => {
             return a.day - b.day;
@@ -60,7 +63,10 @@ export class SelectedRosterPage implements OnInit {
             const my_dates = myDates.map(date => {
               const uid = date.payload.doc.id;
               const day = date.payload.doc.data()['date'].toDate();
-              const format = date.payload.doc.data()['format'];
+              let format = date.payload.doc.data()['format'];
+              if (format == null) {
+                format = moment(day).format('Do ddd MMM YYYY');
+              }
               return {uid, day, format};
             }).sort((a, b) => {
               return a.day - b.day;

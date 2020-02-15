@@ -212,7 +212,13 @@ exports.remindOnCallEmail = functions.https.onRequest(async (req, res)=>{
     dates.forEach(date=>{
       const uid = date.id;
       const this_date = date.data()["date"].toDate();
-      const this_format = date.data()["format"];
+      let this_format = "";
+      if (date.data()["format"]) {
+        this_format = date.data()["format"];
+      } else {
+        this_format = moment(this_date).format('ddd Do MMM YYYY');
+      }
+      
       let user_id = "";
       if(date.data()["user"] !== ""){
         user_id = date.data()["user"];
@@ -239,14 +245,14 @@ exports.remindOnCallEmail = functions.https.onRequest(async (req, res)=>{
     console.log(error.stack);
     res.status(500).send('error');
   })
-
+ 
 });
 
 function sendEmail(email: string, format_date: string){
-  const html_message="<body style='padding-top: 50px; text-align: center; font-family: monaco, monospace; background-color: #0cd1e8; background-size: cover;'><div class='content' style='margin: 80px;'><h1 style='display: inline-block; color: white; font-size: 30px;'>KAOS Reminder</h1><br><img src='https://firebasestorage.googleapis.com/v0/b/kaos-1514072349785.appspot.com/o/kaos_redthread.png?alt=media&token=4ece744b-9e04-47a9-ab14-5f244a18efdd'><br><p style='color: white; text-align: left;'>You have volunteered to offer clinician support to our youth worker, Barney Dunn.</p><p style='color: white; text-align: left;'>You are currently rostered to work "+ format_date +"</p><p style='color: white; text-align: left;'>If you are for some reason nolonger able to cover this day, please could you let Barney, myself or Hannah know on the following email addresses.</p><div class='list_block' style='display: inline-block; margin: 0 auto;'><ul style='list-style-type: none; list-style-position: outside; margin: 0; padding: 0; text-align: left;'><a href='mailTo:barney.dunn@nhs.net' style='color: white;'>barney.dunn@nhs.net</a></ul><ul style='list-style-type: none; list-style-position: outside; margin: 0; padding: 0; text-align: left;'><a href='mailTo:simon.chapman@nhs.net' style='color: white;'>simon.chapman@nhs.net</a></ul><ul style='list-style-type: none; list-style-position: outside; margin: 0; padding: 0; text-align: left;'><a href='mailTo:hannahbaynes1@nhs.net' style='color: white;'>hannahbaynes1@nhs.net</a></ul></div><p style='color: white; text-align: left;'>Please note that this is an automated email and does not accept replies. If you have any questions do let us know.</p><p style='color: white; text-align: left;'>Warm wishes,</p><p style='color: white; text-align: left;'>KAOS</p></div></body>";
+  const html_message="<body style='padding-top: 50px; text-align: center; font-family: monaco, monospace; background-color: #0cd1e8; background-size: cover;'><div class='content' style='margin: 80px;'><h1 style='display: inline-block; color: white; font-size: 30px;'>KAOS Reminder</h1><br><img src='https://firebasestorage.googleapis.com/v0/b/kaos-1514072349785.appspot.com/o/kaos_redthread.png?alt=media&token=4ece744b-9e04-47a9-ab14-5f244a18efdd'><br><p style='color: white; text-align: left;'>You have volunteered to offer clinician support to our youth workers, Barney Dunn and Chris Evans.</p><p style='color: white; text-align: left;'>You are currently rostered to work "+ format_date +"</p><p style='color: white; text-align: left;'>If you are for some reason nolonger able to cover this day, please could you let Barney, Chris, myself or Hannah know on the following email addresses.</p><div class='list_block' style='display: inline-block; margin: 0 auto;'><ul style='list-style-type: none; list-style-position: outside; margin: 0; padding: 0; text-align: left;'><a href='mailTo:barney.dunn@nhs.net' style='color: white;'>barney.dunn@nhs.net</a></ul><ul style='list-style-type: none; list-style-position: outside; margin: 0; padding: 0; text-align: left;'><a href='mailTo:c.evans@nhs.net' style='color: white;'>c.evans@nhs.net</a></ul><ul style='list-style-type: none; list-style-position: outside; margin: 0; padding: 0; text-align: left;'><a href='mailTo:simon.chapman@nhs.net' style='color: white;'>simon.chapman@nhs.net</a></ul><ul style='list-style-type: none; list-style-position: outside; margin: 0; padding: 0; text-align: left;'><a href='mailTo:hannahbaynes1@nhs.net' style='color: white;'>hannahbaynes1@nhs.net</a></ul></div><p style='color: white; text-align: left;'>Please note that this is an automated email and does not accept replies. If you have any questions do let us know.</p><p style='color: white; text-align: left;'>Warm wishes,</p><p style='color: white; text-align: left;'>KAOS</p></div></body>";
   const recipientBody = {
     to: email,
-    cc: ["simon.chapman@nhs.net", "hannahbaynes1@nhs.net", "barney.dunn@nhs.net"],
+    cc: ["simon.chapman@nhs.net", "hannahbaynes1@nhs.net", "barney.dunn@nhs.net", "c.evans@nhs.net"],
     from: "noreply@mail.kaos.team",
     subject: "KAOS Reminder",
     html: html_message
