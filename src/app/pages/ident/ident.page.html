@@ -10,7 +10,7 @@
     <ion-card *ngIf="user_profile; else spinner">
       <ion-card-header color="light" (click)="updateImg(user_profile[0].avatar)">
         <ion-avatar *ngIf="user_profile?.length>0">
-          <ion-img src={{user_profile[0].avatar}}></ion-img>
+          <ion-img src={{user_profile[0].data.avatar}}></ion-img>
         </ion-avatar>
       </ion-card-header>
       <ion-card-content *ngIf="user_profile?.length>0">

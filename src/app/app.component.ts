@@ -16,27 +16,27 @@ export class AppComponent {
     {
       title: 'Home',
       url: '/home',
-      icon: 'home'
+      icon: 'home-outline'
     },
     {
       title: 'Resources',
       url: '/list',
-      icon: 'list'
+      icon: 'list-outline'
     },
     {
       title: 'Quiz',
       url: '/quiz',
-      icon: 'help'
+      icon: 'help-outline'
     },
     {
       title: 'Meet the Team',
       url: '/team-members',
-      icon: 'people'
+      icon: 'people-outline'
     },
     {
       title: 'About KAOS',
       url: '/about',
-      icon: 'information-circle'
+      icon: 'information-circle-outline'
     }
   ];
 
@@ -62,7 +62,7 @@ export class AppComponent {
           this.user_profiles = profiles.map(profile => {
             const uid = profile.payload.doc.id;
             const data = profile.payload.doc.data();
-            return {uid, ...data};
+            return {uid, data};
           });
         });
       }

@@ -1,6 +1,6 @@
 <ion-app>
-  <ion-split-pane>
-    <ion-menu>
+  <ion-split-pane contentId='main'>
+    <ion-menu menuId="sideMenu" contentId='main'>
       <ion-header>
         <ion-toolbar color="primary">
           <ion-title>Menu</ion-title>
@@ -11,7 +11,7 @@
             <div *ngFor="let user_profile of user_profiles">
               <ion-item color="light" detail="true" href="profile/{{user_profile.uid}}">
                 <ion-avatar slot="start">
-                  <ion-img src={{user_profile.avatar}}></ion-img>
+                  <ion-img src={{user_profile.data.avatar}}></ion-img>
                 </ion-avatar>
                 <ion-label>
                   <ion-text>
@@ -56,6 +56,6 @@
         </ng-template>
       </ion-footer>
     </ion-menu>
-    <ion-router-outlet main></ion-router-outlet>
+    <ion-router-outlet id='main'></ion-router-outlet>
   </ion-split-pane>
 </ion-app>
