@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
+// import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -14,15 +15,15 @@ export class AuthService {
   }
 
   signIn(email: string, password: string): Promise<any>{
-    return this.auth.auth.signInWithEmailAndPassword(email, password);
+    return this.auth.signInWithEmailAndPassword(email, password);
   }
 
   signOut():Promise<any>{
-    return this.auth.auth.signOut();
+    return this.auth.signOut();
   }
 
   resetPassword(email) {
-    return this.auth.auth.sendPasswordResetEmail(email);
+    return this.auth.sendPasswordResetEmail(email);
   }
 
 }

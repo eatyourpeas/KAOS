@@ -39,6 +39,10 @@ export class QuizPage implements OnInit {
   }
 
   ngOnInit() {
+    
+  }
+
+  ngAfterViewInit() {
     this.slides.lockSwipes(true);
   }
 
